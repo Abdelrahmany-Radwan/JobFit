@@ -1,4 +1,4 @@
-# JobFit — local resume match project
+# JobFit - local resume match project
 
 Upload a PDF, DOCX, or TXT resume, paste a job description, and see detected strengths, missing resume evidence, and which existing resume lines to highlight. It never invents qualifications or sends files to an AI service. The score only measures coverage of its recognized skill phrases; it is not an ATS score or hiring prediction.
 
