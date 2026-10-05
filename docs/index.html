@@ -55,10 +55,10 @@
             <div class="resume-rule"></div>
             <div class="resume-section">EXPERIENCE</div>
             <div class="line w90"></div>
-            <div class="evidence-highlight"><span></span><div class="line w82"></div></div>
+            <div class="evidence-highlight" data-evidence="communication"><span></span><div class="line w82"></div></div>
             <div class="line w70"></div>
             <div class="resume-section">PROJECTS</div>
-            <div class="evidence-highlight second"><span></span><div class="line w76"></div></div>
+            <div class="evidence-highlight second" data-evidence="analysis"><span></span><div class="line w76"></div></div>
             <div class="line w60"></div>
           </div>
         </div>
@@ -67,12 +67,12 @@
           <div class="role-title">Data & AI Intern</div>
           <div class="role-rule"></div>
           <div class="requirement"><b>01</b><span>Build with Python and data</span></div>
-          <div class="requirement active"><b>02</b><span>Communicate technical work clearly</span></div>
-          <div class="requirement active"><b>03</b><span>Turn analysis into decisions</span></div>
+          <div class="requirement active" data-match="communication"><b>02</b><span>Communicate technical work clearly</span></div>
+          <div class="requirement active" data-match="analysis"><b>03</b><span>Turn analysis into decisions</span></div>
           <div class="requirement"><b>04</b><span>Collaborate across a team</span></div>
         </div>
-        <div class="match-path path-one"></div>
-        <div class="match-path path-two"></div>
+        <div class="match-path path-one" data-path="communication"></div>
+        <div class="match-path path-two" data-path="analysis"></div>
         <div class="match-bubble">2 strong connections <b>✓</b></div>
       </div>
     </section>
@@ -109,6 +109,24 @@
         <div class="scribble arrow-b">↝</div>
         <div class="scrap scrap-d"><small>IN THE JOB POST</small><strong>Communicate technical ideas clearly</strong></div>
         <div class="board-note">not the same words.<br><b>still the same signal.</b></div>
+      </div>
+    </section>
+
+    <section class="company-strip reveal" aria-label="Works with job descriptions from anywhere">
+      <div class="company-head">
+        <p class="eyebrow">Paste a role from anywhere</p>
+        <h2>Built for the companies students actually apply to.</h2>
+        <p>JobFit works from the job description you provide. These brands are examples—not partners or affiliates.</p>
+      </div>
+      <div class="logo-rail" role="list" aria-label="Example companies">
+        <div class="logo-item" role="listitem"><img src="https://cdn.simpleicons.org/nvidia/76B900" alt="NVIDIA"></div>
+        <div class="logo-item" role="listitem"><img src="https://cdn.simpleicons.org/microsoft/5E5E5E" alt="Microsoft"></div>
+        <div class="logo-item" role="listitem"><img src="https://cdn.simpleicons.org/google/4285F4" alt="Google"></div>
+        <div class="logo-item" role="listitem"><img src="https://cdn.simpleicons.org/apple/111111" alt="Apple"></div>
+        <div class="logo-item" role="listitem"><img src="https://cdn.simpleicons.org/meta/0866FF" alt="Meta"></div>
+        <div class="logo-item" role="listitem"><img src="https://cdn.simpleicons.org/amazon/FF9900" alt="Amazon"></div>
+        <div class="logo-item" role="listitem"><img src="https://cdn.simpleicons.org/spotify/1DB954" alt="Spotify"></div>
+        <div class="logo-item" role="listitem"><img src="https://cdn.simpleicons.org/intel/0071C5" alt="Intel"></div>
       </div>
     </section>
 
@@ -166,6 +184,39 @@
       <div class="tech-note">
         <p><strong>Why embeddings?</strong> “Built dashboards from operational data” can support a role asking for “data visualization” even when the exact phrase is missing. Semantic similarity helps recognize that relationship.</p>
         <p><strong>Why a fallback?</strong> If the browser cannot load the embedding model, JobFit keeps working with lexical similarity instead of turning a model-loading problem into a broken product.</p>
+      </div>
+    </section>
+
+    <section class="faq reveal" id="faq">
+      <div class="faq-intro">
+        <p class="eyebrow">Questions people actually ask</p>
+        <h2>Quick answers before you trust it with your résumé.</h2>
+      </div>
+      <div class="faq-list">
+        <details>
+          <summary>Does JobFit store my résumé?</summary>
+          <p>No. The public app parses your résumé in the browser and does not require a JobFit application backend to store the document.</p>
+        </details>
+        <details>
+          <summary>Is the percentage an ATS or hiring score?</summary>
+          <p>No. It is an evidence-alignment signal inside JobFit. It helps rank how strongly existing résumé text supports the requirements it finds.</p>
+        </details>
+        <details>
+          <summary>Does JobFit rewrite or invent experience?</summary>
+          <p>No. The product is deliberately evidence-first: matches point back to text already present in the résumé.</p>
+        </details>
+        <details>
+          <summary>What files can I use?</summary>
+          <p>PDF, DOCX, TXT, or pasted text. PDF.js and Mammoth.js handle document extraction client-side.</p>
+        </details>
+        <details>
+          <summary>What happens if the embedding model does not load?</summary>
+          <p>JobFit falls back to lexical similarity instead of failing the entire experience.</p>
+        </details>
+        <details>
+          <summary>Why MiniLM?</summary>
+          <p>MiniLM gives JobFit compact sentence embeddings that are practical enough to run in-browser while still capturing semantic similarity beyond exact keywords.</p>
+        </details>
       </div>
     </section>
 
