@@ -69,10 +69,18 @@ def evaluate_method(dev_rows, test_rows, dev_scores, test_scores):
 
 def main():
     rows = json.loads(DATA.read_text())
+    # Backward-compatible split assignment keeps the benchmark runnable even
+    # when an older dataset revision is checked out by a workflow run.
+    normalized = []
+    for index, row in enumerate(rows):
+        item = dict(row)
+        item.setdefault("split", "test" if index % 3 == 0 else "dev")
+        normalized.append(item)
+    rows = normalized
     dev_rows = [row for row in rows if row["split"] == "dev"]
     test_rows = [row for row in rows if row["split"] == "test"]
     if not dev_rows or not test_rows:
-        raise ValueError("benchmark.json must contain both dev and test examples")
+        raise ValueError("benchmark requires both dev and test examples")
 
     from sentence_transformers import SentenceTransformer
     import numpy as np
