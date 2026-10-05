@@ -134,6 +134,83 @@ async function analyze(resume,job){
   return rows;
 }
 
+
+function extractJobKeywords(job){
+  const words=(job.toLowerCase().match(/[a-z][a-z0-9+#.]{2,}/g)||[])
+    .filter(w=>!stop.has(w) && w.length>2);
+  const freq=new Map();
+  words.forEach(w=>freq.set(w,(freq.get(w)||0)+1));
+  return [...freq.entries()]
+    .sort((a,b)=>b[1]-a[1] || a[0].localeCompare(b[0]))
+    .map(([w])=>w)
+    .slice(0,28);
+}
+
+function resumeHealth(resume){
+  const lower=resume.toLowerCase();
+  const lines=resume.split(/\n+/).map(s=>s.trim()).filter(Boolean);
+  const bullets=lines.filter(s=>/^[•\-–]/.test(s) || /\b(built|created|developed|led|designed|implemented|analyzed|improved|managed|collaborated|presented|automated|configured|resolved|researched)\b/i.test(s));
+  const quantified=lines.filter(s=>/\b\d+(?:\.\d+)?%?\b/.test(s));
+  const hasExperience=/\bexperience\b/i.test(resume);
+  const hasEducation=/\beducation\b/i.test(resume);
+  const hasProjects=/\bprojects?\b/i.test(resume);
+  const email=/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i.test(resume);
+  const phone=/(?:\+?1[-.\s]?)?(?:\(?\d{3}\)?[-.\s]?)\d{3}[-.\s]?\d{4}/.test(resume);
+  const checks=[
+    {name:"Core sections",pass:hasExperience&&hasEducation,detail:hasExperience&&hasEducation?"Experience and education found.":"Add clear Experience and Education sections."},
+    {name:"Projects signal",pass:hasProjects,detail:hasProjects?"Projects section found.":"A Projects section can help technical work stand out."},
+    {name:"Action-oriented bullets",pass:bullets.length>=3,detail:bullets.length>=3?`${bullets.length} action-oriented lines found.`:"Use stronger action verbs in experience/project bullets."},
+    {name:"Quantified impact",pass:quantified.length>=2,detail:quantified.length>=2?`${quantified.length} quantified lines found.`:"Add numbers where they are truthful and useful."},
+    {name:"Contact basics",pass:email||phone,detail:(email||phone)?"Contact information detected.":"Add at least an email or phone number."},
+    {name:"Readable length",pass:resume.length>=500&&resume.length<=7000,detail:resume.length>=500&&resume.length<=7000?"Resume text length looks reasonable.":"Resume may be unusually short or long for a one-page early-career resume."}
+  ];
+  const score=Math.round(checks.filter(c=>c.pass).length/checks.length*100);
+  return {checks,score};
+}
+
+function renderHealth(resume, rows){
+  const health=resumeHealth(resume);
+  $("healthScore").textContent=health.score+"%";
+  const holder=$("healthChecks"); holder.innerHTML="";
+  health.checks.forEach(c=>{
+    const d=document.createElement("div");
+    d.className="health-item "+(c.pass?"pass":"warn");
+    d.innerHTML='<span>'+(c.pass?"✓":"↗")+'</span><div><b>'+escapeHtml(c.name)+'</b><p>'+escapeHtml(c.detail)+'</p></div>';
+    holder.appendChild(d);
+  });
+
+  const queue=$("actionQueue"); queue.innerHTML="";
+  const actions=[];
+  rows.filter(x=>x.score<0.40).slice(0,3).forEach(x=>actions.push("Strengthen or add evidence for: "+x.req));
+  health.checks.filter(c=>!c.pass).forEach(c=>actions.push(c.detail));
+  if(!actions.length) actions.push("No major issues surfaced in the current checks. Review wording and accuracy before applying.");
+  actions.slice(0,6).forEach((a,i)=>{
+    const d=document.createElement("div"); d.className="action-item";
+    d.innerHTML='<b>'+String(i+1).padStart(2,"0")+'</b><span>'+escapeHtml(a)+'</span>';
+    queue.appendChild(d);
+  });
+}
+
+function renderKeywords(resume,job){
+  const kws=extractJobKeywords(job);
+  const rt=tokens(resume.toLowerCase());
+  const present=kws.filter(k=>rt.has(k));
+  const missing=kws.filter(k=>!rt.has(k));
+  $("keywordCoverage").textContent=(kws.length?Math.round(present.length/kws.length*100):0)+"%";
+  const p=$("presentKeywords"),m=$("missingKeywords"); p.innerHTML="";m.innerHTML="";
+  present.forEach(k=>{const s=document.createElement("span");s.textContent=k;p.appendChild(s)});
+  missing.forEach(k=>{const s=document.createElement("span");s.textContent=k;m.appendChild(s)});
+}
+
+document.querySelectorAll(".report-tab").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    document.querySelectorAll(".report-tab").forEach(x=>{x.classList.remove("active");x.setAttribute("aria-selected","false")});
+    document.querySelectorAll(".report-pane").forEach(x=>x.classList.remove("active"));
+    btn.classList.add("active");btn.setAttribute("aria-selected","true");
+    document.querySelector('[data-pane="'+btn.dataset.tab+'"]')?.classList.add("active");
+  });
+});
+
 analyzeBtn.addEventListener("click", async () => {
   errorEl.classList.add("hidden");
   resultsEl.classList.add("hidden");
@@ -167,6 +244,9 @@ analyzeBtn.addEventListener("click", async () => {
       d.innerHTML='<div class="match-title"><span>'+escapeHtml(x.evidence)+'</span><span class="pill">'+Math.round(x.score*100)+'%</span></div><div class="evidence">Best supports: '+escapeHtml(x.req)+'</div>';
       ranked.appendChild(d);
     });
+
+    renderHealth(resume, rows);
+    renderKeywords(resume, job);
 
     resultsEl.classList.remove("hidden");
     resultsEl.scrollIntoView({behavior:"smooth",block:"start"});
