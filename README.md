@@ -4,6 +4,11 @@
 [![CI](https://img.shields.io/github/actions/workflow/status/Abdelrahmany-Radwan/JobFit/ci.yml?branch=main&label=CI&style=flat-square)](https://github.com/Abdelrahmany-Radwan/JobFit/actions/workflows/ci.yml)
 [![Pages](https://img.shields.io/github/actions/workflow/status/Abdelrahmany-Radwan/JobFit/pages.yml?branch=main&label=Pages&style=flat-square)](https://github.com/Abdelrahmany-Radwan/JobFit/actions/workflows/pages.yml)
 
+![Python](https://img.shields.io/badge/Python-3.13-3776AB?style=flat-square&logo=python&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=flat-square&logo=javascript&logoColor=111)
+![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-CI%2FCD-2088FF?style=flat-square&logo=githubactions&logoColor=white)
+![Transformers.js](https://img.shields.io/badge/Transformers.js-MiniLM-FFCC4D?style=flat-square)
+
 JobFit is an explainable resume-to-job matching project built around a problem I saw students face: it is hard to tell which parts of a resume actually support a job application without either relying on exact keyword matching or rewriting experience beyond what really happened.
 
 JobFit uses semantic sentence embeddings and transparent evidence matching to connect job requirements to existing resume text. The public application runs in the browser so the document can be analyzed without a JobFit resume-storage backend.
@@ -72,6 +77,10 @@ JobFit/
 ├── LICENSE                    # MIT license
 └── README.md                  # Project documentation
 ```
+
+## Architecture
+
+See [ARCHITECTURE.md](ARCHITECTURE.md) for the system design, data flow, implementation split, and delivery model.
 
 ## Engineering notes
 
