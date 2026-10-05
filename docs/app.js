@@ -38,15 +38,15 @@ function cosine(a,b) {
 
 async function loadModel() {
   if (extractor) return extractor;
-  statusEl.textContent = "Loading transformer model…";
+  statusEl.textContent = "loading the matcher…";
   try {
     const { pipeline, env } = await import("https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2/+esm");
     env.allowLocalModels = false;
     extractor = await pipeline("feature-extraction","Xenova/all-MiniLM-L6-v2",{quantized:true});
-    statusEl.textContent = "AI model ready · MiniLM embeddings";
+    statusEl.textContent = "MiniLM ready · matching locally";
     return extractor;
   } catch (e) {
-    statusEl.textContent = "Semantic fallback active";
+    statusEl.textContent = "lexical fallback active";
     extractor = false;
     return false;
   }
@@ -196,17 +196,14 @@ window.addEventListener("scroll", () => {
   $("progress").style.width = (max > 0 ? (doc.scrollTop / max) * 100 : 0) + "%";
 }, { passive: true });
 
-document.querySelectorAll(".resume-card").forEach((card) => {
+
+document.querySelectorAll(".sheet, .jobcard, .receipt, .note").forEach((card) => {
   card.addEventListener("pointermove", (event) => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const rect = card.getBoundingClientRect();
     const x = (event.clientX - rect.left) / rect.width - .5;
     const y = (event.clientY - rect.top) / rect.height - .5;
-    card.style.setProperty("--px", x.toFixed(2));
-    card.style.setProperty("--py", y.toFixed(2));
+    card.style.filter = "brightness(" + (1 + y * .035) + ")";
   });
-  card.addEventListener("pointerleave", () => {
-    card.style.removeProperty("--px");
-    card.style.removeProperty("--py");
-  });
+  card.addEventListener("pointerleave", () => card.style.removeProperty("filter"));
 });
