@@ -3,134 +3,136 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="JobFit — AI-assisted, privacy-first resume-to-job evidence matcher." />
-  <title>JobFit — AI Resume Match Explainer</title>
+  <meta name="description" content="JobFit helps students connect job requirements to evidence already in their resume." />
+  <meta name="theme-color" content="#f6f4ee" />
+  <title>JobFit — Find the evidence in your experience</title>
   <link rel="stylesheet" href="./style.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.8.69/pdf.min.mjs" type="module"></script>
   <script src="https://cdn.jsdelivr.net/npm/mammoth@1.8.0/mammoth.browser.min.js"></script>
 </head>
 <body>
-  <main class="shell">
-    <nav class="nav">
-      <div class="brand"><span class="dot"></span>JobFit</div>
-      <div class="navlinks">
-        <a href="#demo">Live demo</a>
-        <a href="#architecture">Architecture</a>
-        <a href="https://github.com/Abdelrahmany-Radwan/JobFit" target="_blank" rel="noreferrer">GitHub ↗</a>
-      </div>
+  <div class="progress" id="progress"></div>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="JobFit home"><span class="brand-mark">J</span><span>JobFit</span></a>
+    <nav>
+      <a href="#story">Story</a>
+      <a href="#demo">Try it</a>
+      <a href="#how">How it works</a>
+      <a class="nav-github" href="https://github.com/Abdelrahmany-Radwan/JobFit" target="_blank" rel="noreferrer">GitHub ↗</a>
     </nav>
+  </header>
 
-    <section class="hero">
-      <div class="eyebrow">AI + explainability + privacy</div>
-      <h1>Know what your resume <span>actually proves.</span></h1>
-      <p class="lede">JobFit compares a resume with a job description using semantic embeddings plus transparent evidence matching. It shows strong matches, missing evidence, and the exact resume lines that support each result.</p>
-      <div class="hero-actions">
-        <a class="btn primary" href="#demo">Try the live demo</a>
-        <a class="btn ghost" href="#architecture">See how it works</a>
+  <main id="top">
+    <section class="hero reveal">
+      <div class="hero-copy">
+        <p class="eyebrow">Built for students applying to their next opportunity</p>
+        <h1>Your experience already tells a story. <em>JobFit helps you find the evidence.</em></h1>
+        <p class="lede">Compare a resume with a job description and see which requirements your experience supports, where the evidence is weak, and which existing lines deserve more attention.</p>
+        <div class="actions">
+          <a class="button primary" href="#demo">Check a match</a>
+          <a class="button secondary" href="#story">Why I built this</a>
+        </div>
+        <p class="privacy-note"><span>●</span> Your resume is processed in your browser. JobFit does not store it on an application server.</p>
       </div>
-      <div class="trust">
-        <span>✓ Runs in your browser</span>
-        <span>✓ No resume upload to a server</span>
-        <span>✓ Explainable evidence</span>
-        <span>✓ AI semantic matching</span>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="paper resume-paper">
+          <div class="paper-top"><span></span><span></span></div>
+          <div class="line w80"></div><div class="line w55"></div>
+          <div class="line w90"></div><div class="line w72 active"></div>
+          <div class="line w84"></div><div class="line w62 active"></div>
+          <div class="line w76"></div>
+        </div>
+        <div class="connector one"></div><div class="connector two"></div>
+        <div class="paper job-paper">
+          <div class="mini-label">ROLE</div>
+          <div class="line w70"></div><div class="line w88 active"></div>
+          <div class="line w60"></div><div class="line w82 active"></div>
+          <div class="line w74"></div>
+        </div>
+        <div class="match-bubble">evidence found <b>✓</b></div>
       </div>
     </section>
 
-    <section class="why">
+    <section id="story" class="story reveal">
+      <div class="section-number">01</div>
       <div>
-        <div class="kicker">WHY I BUILT IT</div>
-        <h2>Resume tools should help you tell the truth better—not invent a better truth.</h2>
+        <p class="eyebrow">The problem I wanted to solve</p>
+        <h2>I kept seeing the same problem.</h2>
+        <p class="story-lead">Students have real projects, classes, internships, and leadership experience—but translating that experience to one specific job description is difficult.</p>
       </div>
-      <p>I built JobFit because keyword-only resume checkers miss semantic matches, while generative tools can rewrite bullets beyond what a candidate actually did. JobFit takes a middle path: use AI to understand meaning, then require visible evidence from the resume.</p>
+      <div class="story-body">
+        <p>Keyword scanners can miss related experience when the wording is different. Generative tools can go too far in the other direction and rewrite a resume into something the student cannot confidently defend.</p>
+        <p>So I built JobFit around one rule: <strong>use technology to understand the match, but keep the evidence grounded in what the student actually did.</strong></p>
+      </div>
     </section>
 
-    <section id="demo" class="panel">
-      <div class="section-head">
-        <div>
-          <div class="kicker">LIVE PRODUCT</div>
-          <h2>Resume ↔ Job Match</h2>
-        </div>
-        <div id="modelStatus" class="status">AI model loads when you analyze</div>
+    <section class="principles reveal">
+      <article><span>01</span><h3>Understand meaning</h3><p>Semantic embeddings compare ideas, not only identical words.</p></article>
+      <article><span>02</span><h3>Show the evidence</h3><p>Every useful result points back to an existing resume line.</p></article>
+      <article><span>03</span><h3>Respect the document</h3><p>Resume processing stays in the browser instead of being stored by JobFit.</p></article>
+    </section>
+
+    <section id="demo" class="demo reveal">
+      <div class="demo-heading">
+        <div><p class="eyebrow">Try JobFit</p><h2>Put your resume next to the role.</h2></div>
+        <div id="modelStatus" class="model-status"><span></span>Ready to analyze</div>
       </div>
 
-      <div class="grid two">
-        <div class="input-card">
-          <label for="resumeFile">Resume</label>
-          <input id="resumeFile" type="file" accept=".pdf,.docx,.txt" />
-          <div class="or">or paste text</div>
-          <textarea id="resumeText" placeholder="Paste your resume text here..."></textarea>
+      <div class="workspace">
+        <div class="field">
+          <div class="field-head"><label for="resumeFile">Your resume</label><small>PDF · DOCX · TXT</small></div>
+          <label class="dropzone" for="resumeFile"><b>Choose a resume</b><span>or paste the text below</span></label>
+          <input id="resumeFile" class="file-input" type="file" accept=".pdf,.docx,.txt" />
+          <textarea id="resumeText" placeholder="Paste your resume text…"></textarea>
         </div>
-        <div class="input-card">
-          <label for="jobText">Job description</label>
-          <textarea id="jobText" placeholder="Paste the responsibilities and qualifications for one role..."></textarea>
+        <div class="swap">↔</div>
+        <div class="field">
+          <div class="field-head"><label for="jobText">The opportunity</label><small>JOB DESCRIPTION</small></div>
+          <textarea id="jobText" class="job-area" placeholder="Paste the role responsibilities and qualifications…"></textarea>
         </div>
       </div>
-
-      <button id="analyzeBtn" class="btn primary wide">Analyze with JobFit AI</button>
+      <button id="analyzeBtn" class="analyze">Find my evidence <span>→</span></button>
       <div id="error" class="error hidden"></div>
 
-      <div id="results" class="hidden">
-        <div class="metrics">
-          <div class="metric"><span id="score">—</span><small>semantic evidence score</small></div>
-          <div class="metric"><span id="matchedCount">—</span><small>strong requirements</small></div>
-          <div class="metric"><span id="gapCount">—</span><small>evidence gaps</small></div>
+      <div id="results" class="results hidden">
+        <div class="result-summary">
+          <div class="score-ring"><span id="score">—</span><small>evidence<br>alignment</small></div>
+          <div><p class="eyebrow">Your result</p><h2>Here is what your resume can support.</h2><p>This is evidence similarity—not a hiring prediction or an ATS score.</p></div>
         </div>
-
-        <div class="results-grid">
-          <div class="result-card">
-            <h3>Strongest matches</h3>
-            <div id="matches"></div>
-          </div>
-          <div class="result-card">
-            <h3>Evidence gaps</h3>
-            <div id="gaps"></div>
-          </div>
+        <div class="metric-row">
+          <div><b id="matchedCount">—</b><span>strong requirement matches</span></div>
+          <div><b id="gapCount">—</b><span>requirements to review</span></div>
         </div>
-
-        <div class="result-card full">
-          <h3>Resume evidence to lead with</h3>
-          <p class="muted">These are existing lines from your resume—not generated qualifications.</p>
-          <div id="ranked"></div>
+        <div class="result-grid">
+          <article class="result-card"><div class="card-title"><span class="good-dot"></span><h3>Strong evidence</h3></div><div id="matches"></div></article>
+          <article class="result-card"><div class="card-title"><span class="review-dot"></span><h3>Worth reviewing</h3></div><div id="gaps"></div></article>
         </div>
+        <article class="result-card evidence-card"><p class="eyebrow">Lead with what is already yours</p><h3>Resume evidence that connects best</h3><div id="ranked"></div></article>
       </div>
     </section>
 
-    <section id="architecture" class="architecture">
-      <div class="kicker">TECHNICAL ARCHITECTURE</div>
-      <h2>AI where it helps. Deterministic logic where it matters.</h2>
-      <div class="pipeline">
-        <div class="step"><b>1</b><span>PDF / DOCX / TXT</span><small>client-side extraction</small></div>
-        <div class="arrow">→</div>
-        <div class="step"><b>2</b><span>Requirement parsing</span><small>qualification-oriented sentence filtering</small></div>
-        <div class="arrow">→</div>
-        <div class="step accent"><b>3</b><span>Transformer embeddings</span><small>all-MiniLM-L6-v2 in-browser</small></div>
-        <div class="arrow">→</div>
-        <div class="step"><b>4</b><span>Evidence matching</span><small>cosine similarity + lexical signals</small></div>
-        <div class="arrow">→</div>
-        <div class="step"><b>5</b><span>Explainable output</span><small>exact supporting resume lines</small></div>
+    <section id="how" class="how reveal">
+      <div class="section-number">02</div>
+      <div class="how-title"><p class="eyebrow">Under the hood</p><h2>Simple enough to explain. Technical enough to matter.</h2></div>
+      <div class="flow">
+        <div><b>01</b><span>Parse</span><small>PDF, DOCX, or text is read locally.</small></div>
+        <i>→</i><div><b>02</b><span>Represent</span><small>MiniLM turns sentences into embeddings.</small></div>
+        <i>→</i><div><b>03</b><span>Compare</span><small>Cosine similarity and lexical signals rank evidence.</small></div>
+        <i>→</i><div><b>04</b><span>Explain</span><small>Results link back to the original resume text.</small></div>
       </div>
-
-      <div class="grid three cards">
-        <article><h3>AI proficiency</h3><p>Uses a transformer sentence-embedding model to capture semantic similarity beyond exact keyword overlap.</p></article>
-        <article><h3>Responsible design</h3><p>The model ranks evidence; it does not generate credentials. Every result remains traceable to user-provided text.</p></article>
-        <article><h3>Privacy-aware engineering</h3><p>Inference and file parsing happen in the browser. Resume contents are not sent to a JobFit backend.</p></article>
+      <div class="tech-note">
+        <p><strong>Why embeddings?</strong> “Built dashboards from operational data” can support a role asking for “data visualization” even when the exact phrase is missing. Semantic similarity helps recognize that relationship.</p>
+        <p><strong>Why a fallback?</strong> If the browser cannot load the embedding model, JobFit keeps working with lexical similarity instead of turning a model-loading problem into a broken product.</p>
       </div>
     </section>
 
-    <section class="build">
-      <div>
-        <div class="kicker">AI-ASSISTED DEVELOPMENT</div>
-        <h2>Built with an AI-native engineering workflow.</h2>
-      </div>
-      <p>JobFit was developed iteratively with AI-assisted coding and review: using ChatGPT for architecture discussion, code review, edge-case analysis, UX refinement, and documentation, while keeping implementation choices verifiable in source control. The goal was not to outsource reasoning—it was to use AI as a development accelerator while preserving technical ownership.</p>
+    <section class="closing reveal">
+      <p class="eyebrow">The idea behind JobFit</p>
+      <blockquote>“Help students recognize the value already inside their experience—and explain it with confidence.”</blockquote>
+      <a href="https://github.com/Abdelrahmany-Radwan/JobFit" target="_blank" rel="noreferrer">Explore the source and engineering decisions ↗</a>
     </section>
-
-    <footer>
-      <span>Built by Abdelrahman Radwan</span>
-      <a href="https://github.com/Abdelrahmany-Radwan/JobFit" target="_blank" rel="noreferrer">View source on GitHub ↗</a>
-    </footer>
   </main>
 
+  <footer><div><span class="brand-mark small">J</span><b>JobFit</b></div><p>Designed and built by Abdelrahman Radwan.</p><a href="#top">Back to top ↑</a></footer>
   <script type="module" src="./app.js"></script>
 </body>
 </html>
