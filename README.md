@@ -1,126 +1,93 @@
 # JobFit
 
-[![Live Site](https://img.shields.io/badge/live-jobfit-2f6f62?style=flat-square)](https://abdelrahmany-radwan.github.io/JobFit/)
-[![CI](https://img.shields.io/github/actions/workflow/status/Abdelrahmany-Radwan/JobFit/ci.yml?branch=main&label=CI&style=flat-square)](https://github.com/Abdelrahmany-Radwan/JobFit/actions/workflows/ci.yml)
-[![Pages](https://img.shields.io/github/actions/workflow/status/Abdelrahmany-Radwan/JobFit/pages.yml?branch=main&label=Pages&style=flat-square)](https://github.com/Abdelrahmany-Radwan/JobFit/actions/workflows/pages.yml)
+[![CI](https://img.shields.io/github/actions/workflow/status/Abdelrahmany-Radwan/JobFit/ci.yml?branch=main&label=build&style=flat-square)](https://github.com/Abdelrahmany-Radwan/JobFit/actions/workflows/ci.yml)
+[![Evaluation](https://img.shields.io/github/actions/workflow/status/Abdelrahmany-Radwan/JobFit/evaluation.yml?branch=main&label=evaluation&style=flat-square)](https://github.com/Abdelrahmany-Radwan/JobFit/actions/workflows/evaluation.yml)
+[![Deploy](https://img.shields.io/github/actions/workflow/status/Abdelrahmany-Radwan/JobFit/pages.yml?branch=main&label=deploy&style=flat-square)](https://github.com/Abdelrahmany-Radwan/JobFit/actions/workflows/pages.yml)
 
-![Python](https://img.shields.io/badge/Python-3.13-3776AB?style=flat-square&logo=python&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=flat-square&logo=javascript&logoColor=111)
-![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-CI%2FCD-2088FF?style=flat-square&logo=githubactions&logoColor=white)
-![Transformers.js](https://img.shields.io/badge/Transformers.js-MiniLM-FFCC4D?style=flat-square)
+JobFit is an evidence-first resume-to-job matching system. It maps individual job requirements to supporting resume text using in-browser sentence embeddings, then exposes the evidence behind each match instead of generating new qualifications.
 
-JobFit is an explainable resume-to-job matching project built around a problem I saw students face: it is hard to tell which parts of a resume actually support a job application without either relying on exact keyword matching or rewriting experience beyond what really happened.
+**[Live application](https://abdelrahmany-radwan.github.io/JobFit/)** · **[Architecture](ARCHITECTURE.md)**
 
-JobFit uses semantic sentence embeddings and transparent evidence matching to connect job requirements to existing resume text. The public application runs in the browser so the document can be analyzed without a JobFit resume-storage backend.
-
-**[Open JobFit](https://abdelrahmany-radwan.github.io/JobFit/)**
-
-## Product principles
-
-- **Evidence first** — results point back to text that already exists in the resume.
-- **Semantic matching** — sentence embeddings capture related meaning beyond exact keyword overlap.
-- **Explainable output** — each match shows the job requirement and supporting resume evidence.
-- **Privacy-aware processing** — the public application parses files and performs matching client-side.
-- **Graceful fallback** — lexical similarity keeps the core experience available if the embedding model cannot load.
-
-## How it works
+## System
 
 ```text
-Resume + job description
-          │
-          ▼
-Client-side document parsing
-          │
-          ▼
-Requirement-oriented text segmentation
-          │
-          ▼
-MiniLM sentence embeddings
-          │
-          ▼
-Cosine similarity + lexical signals
-          │
-          ▼
-Requirement ↔ resume evidence
+PDF / DOCX / text
+        │
+        ▼
+client-side parsing
+        │
+        ▼
+requirement + resume segmentation
+        │
+        ▼
+all-MiniLM-L6-v2 embeddings
+        │
+        ├──────────────┐
+        ▼              ▼
+cosine similarity   lexical overlap
+        │              │
+        └──────┬───────┘
+               ▼
+       hybrid evidence ranker
+               │
+               ▼
+ requirement → source evidence
 ```
 
-The browser application uses `Xenova/all-MiniLM-L6-v2` through Transformers.js. Resume and job segments are embedded into vector representations, compared with cosine similarity, and combined with lexical overlap signals. The result is presented as evidence rather than generated experience.
+The public application uses Transformers.js to run `Xenova/all-MiniLM-L6-v2` in the browser. PDF.js and Mammoth.js extract document text locally. Semantic similarity is combined with a lexical signal and the interface returns the original resume text supporting each requirement.
 
-## Technology
+If the embedding model is unavailable, the matcher falls back to lexical scoring rather than blocking the workflow.
 
-| Layer | Technology | Purpose |
-| --- | --- | --- |
-| Web UI | HTML, CSS, JavaScript | Responsive public product experience |
-| Semantic matching | Transformers.js + MiniLM | In-browser sentence embeddings |
-| Document parsing | PDF.js + Mammoth.js | PDF and DOCX text extraction |
-| Matching logic | Cosine similarity + lexical signals | Evidence ranking |
-| Python baseline | Python + Streamlit | Deterministic reference implementation |
-| Delivery | GitHub Actions + GitHub Pages | Continuous validation and deployment |
+## Evaluation
 
-## Repository structure
+The repository includes a reproducible retrieval benchmark comparing:
+
+| Method | Role |
+| --- | --- |
+| Lexical overlap | deterministic baseline |
+| MiniLM cosine similarity | semantic baseline |
+| Hybrid scorer | JobFit retrieval strategy |
+
+Thresholds are selected on a **development split** and final metrics are calculated on a **held-out test split**. The workflow also records inference latency on the GitHub Actions CPU runner.
+
+The current benchmark is intentionally a small curated regression set. It is useful for comparing implementation changes; it is **not** presented as a general measure of hiring, ATS, or real-world recruiting accuracy.
+
+Run details and generated metrics are available from the **Evaluate matching model** GitHub Actions workflow.
+
+## Engineering decisions
+
+- **Evidence over generation.** Matching output must point back to source resume text.
+- **Local document processing.** The public app does not require a JobFit backend to store resumes.
+- **Hybrid retrieval.** Semantic similarity handles wording variation; lexical overlap preserves an interpretable exact-match signal.
+- **Independent baseline.** The original deterministic Python matcher remains in the repository for regression and architectural comparison.
+- **Failure tolerance.** Lexical matching remains available when browser model loading fails.
+- **Measured changes.** Model behavior is evaluated separately from application CI and deployment.
+
+## Repository
 
 ```text
-JobFit/
+.
+├── docs/                 # browser application
+├── evaluation/           # labeled benchmark + evaluator
+├── tests/                # Python baseline tests
 ├── .github/
-│   └── workflows/
-│       ├── ci.yml             # Repository validation
-│       ├── evaluation.yml     # Reproducible ML benchmark
-│       └── pages.yml          # GitHub Pages deployment
-├── evaluation/
-│   ├── benchmark.json         # Labeled retrieval examples
-│   ├── evaluate.py            # Baseline / MiniLM / hybrid evaluator
-│   └── requirements.txt       # Evaluation-only dependencies
-├── docs/
-│   ├── index.html             # Public application
-│   ├── style.css              # Responsive design system
-│   ├── app.js                 # Parsing, embeddings, matching, UI behavior
-│   └── .nojekyll              # Static Pages configuration
-├── analyzer.py                # Deterministic Python matching baseline
-├── app.py                     # Streamlit interface for the Python baseline
-├── requirements.txt           # Python dependencies
-├── CONTRIBUTING.md            # Contribution workflow
-├── LICENSE                    # MIT license
-└── README.md                  # Project documentation
+│   ├── ISSUE_TEMPLATE/   # structured bug / feature reports
+│   └── workflows/        # CI, evaluation, Pages deployment
+├── analyzer.py           # deterministic matching baseline
+├── app.py                # Streamlit reference interface
+├── ARCHITECTURE.md
+├── CONTRIBUTING.md
+└── LICENSE
 ```
 
-## Model evaluation
+## Development
 
-JobFit includes a reproducible retrieval benchmark in `evaluation/` that compares three approaches on labeled requirement-to-evidence pairs:
+The browser application is static and can be served directly from `docs/`.
 
-- lexical token-overlap baseline
-- MiniLM semantic similarity
-- the hybrid JobFit scorer used by the browser application
+The Python reference implementation uses the dependencies in `requirements.txt` and runs with Streamlit. Model evaluation has isolated dependencies in `evaluation/requirements.txt`.
 
-The benchmark reports precision, recall, F1, accuracy, confusion-matrix counts, and the selected decision threshold. Results are generated by the `Evaluate matching model` GitHub Actions workflow and are not hard-coded into this README.
-
-This keeps model claims measurable and separates product design choices from benchmark evidence.
-
-## Architecture
-
-See [ARCHITECTURE.md](ARCHITECTURE.md) for the system design, data flow, implementation split, and delivery model.
-
-## Engineering notes
-
-The project keeps the public browser implementation and the Python baseline separate on purpose. The browser version focuses on semantic matching, privacy, and accessibility through a public URL. The Python implementation keeps the original deterministic skill-matching approach available as a readable baseline for comparison.
-
-JobFit does not treat its similarity result as an ATS score or hiring prediction. The score summarizes evidence similarity within this application and is accompanied by the source text so the user can interpret it.
-
-## AI-assisted development
-
-AI tools were used as part of the development workflow for architecture discussion, implementation review, edge-case reasoning, and documentation. AI-assisted suggestions were reviewed against the project requirements and committed through normal source control rather than treated as authoritative output.
-
-The product itself uses an embedding model for semantic matching. It does not use generative AI to create qualifications or claim experience that is absent from the resume.
-
-## Local development
-
-The public application is static: serve the `docs/` directory with any local HTTP server.
-
-The Python baseline uses the dependencies in `requirements.txt` and runs through Streamlit.
-
-## Contributing
-
-Small, focused changes are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for the development and pull-request workflow.
+Pull requests run syntax validation, unit tests, and static-site checks. Model evaluation and Pages deployment run as separate workflows so code quality, retrieval behavior, and delivery remain independently observable.
 
 ## License
 
-Released under the [MIT License](LICENSE).
+MIT
