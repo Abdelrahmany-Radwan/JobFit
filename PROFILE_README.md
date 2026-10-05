@@ -26,11 +26,6 @@ Evidence-first resume-to-job matching using in-browser MiniLM embeddings, hybrid
 - improving practical Python and data structures
 - shipping technical projects that are measurable, explainable, and useful
 
-## Connect
-
-- GitHub: [@Abdelrahmany-Radwan](https://github.com/Abdelrahmany-Radwan)
-- LinkedIn: add your LinkedIn profile URL here
-
 ---
 
 I care more about **what a system can prove** than what it can claim.
