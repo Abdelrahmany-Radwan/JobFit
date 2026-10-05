@@ -105,7 +105,7 @@ function resumeChunks(resume){
 function renderItem(container,item,isGap=false){
   const d=document.createElement("div");
   d.className="match";
-  d.innerHTML = '<div class="match-title"><span>'+escapeHtml(item.req)+'</span><span class="pill '+(isGap?"gap":"")+'">'+Math.round(item.score*100)+'% similar</span></div>'
+  d.innerHTML = '<div class="match-title"><span>'+escapeHtml(item.req)+'</span><span class="pill '+(isGap?"gap":"")+'">'+Math.round(item.score*100)+'% similarity</span></div>'
     + (item.evidence?'<div class="evidence"><b>Resume evidence:</b> '+escapeHtml(item.evidence)+'</div>':"");
   container.appendChild(d);
 }
@@ -223,9 +223,13 @@ analyzeBtn.addEventListener("click", async () => {
     if(resume.length<80||job.length<80) throw new Error("Add a readable resume and a full job description first.");
 
     const rows=await analyze(resume,job);
-    const strong=rows.filter(x=>x.score>=0.52);
-    const gaps=rows.filter(x=>x.score<0.40);
-    const overall=Math.round((rows.reduce((s,x)=>s+Math.max(0,Math.min(1,(x.score-.18)/.52)),0)/rows.length)*100);
+    // Calibrated from the current dev split in evaluation/evaluate.py.
+    // The threshold is selected on dev data and evaluated on held-out test data.
+    const MATCH_THRESHOLD=0.2068;
+    const REVIEW_THRESHOLD=0.14;
+    const strong=rows.filter(x=>x.score>=MATCH_THRESHOLD);
+    const gaps=rows.filter(x=>x.score<REVIEW_THRESHOLD);
+    const overall=Math.round((strong.length/rows.length)*100);
 
     $("score").textContent=overall+"%";
     $("matchedCount").textContent=strong.length;
