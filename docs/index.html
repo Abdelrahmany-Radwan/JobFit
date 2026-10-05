@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="JobFit — AI-assisted, privacy-first resume-to-job evidence matcher." />
+  <title>JobFit — AI Resume Match Explainer</title>
+  <link rel="stylesheet" href="./style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.8.69/pdf.min.mjs" type="module"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mammoth@1.8.0/mammoth.browser.min.js"></script>
+</head>
+<body>
+  <main class="shell">
+    <nav class="nav">
+      <div class="brand"><span class="dot"></span>JobFit</div>
+      <div class="navlinks">
+        <a href="#demo">Live demo</a>
+        <a href="#architecture">Architecture</a>
+        <a href="https://github.com/Abdelrahmany-Radwan/JobFit" target="_blank" rel="noreferrer">GitHub ↗</a>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div class="eyebrow">AI + explainability + privacy</div>
+      <h1>Know what your resume <span>actually proves.</span></h1>
+      <p class="lede">JobFit compares a resume with a job description using semantic embeddings plus transparent evidence matching. It shows strong matches, missing evidence, and the exact resume lines that support each result.</p>
+      <div class="hero-actions">
+        <a class="btn primary" href="#demo">Try the live demo</a>
+        <a class="btn ghost" href="#architecture">See how it works</a>
+      </div>
+      <div class="trust">
+        <span>✓ Runs in your browser</span>
+        <span>✓ No resume upload to a server</span>
+        <span>✓ Explainable evidence</span>
+        <span>✓ AI semantic matching</span>
+      </div>
+    </section>
+
+    <section class="why">
+      <div>
+        <div class="kicker">WHY I BUILT IT</div>
+        <h2>Resume tools should help you tell the truth better—not invent a better truth.</h2>
+      </div>
+      <p>I built JobFit because keyword-only resume checkers miss semantic matches, while generative tools can rewrite bullets beyond what a candidate actually did. JobFit takes a middle path: use AI to understand meaning, then require visible evidence from the resume.</p>
+    </section>
+
+    <section id="demo" class="panel">
+      <div class="section-head">
+        <div>
+          <div class="kicker">LIVE PRODUCT</div>
+          <h2>Resume ↔ Job Match</h2>
+        </div>
+        <div id="modelStatus" class="status">AI model loads when you analyze</div>
+      </div>
+
+      <div class="grid two">
+        <div class="input-card">
+          <label for="resumeFile">Resume</label>
+          <input id="resumeFile" type="file" accept=".pdf,.docx,.txt" />
+          <div class="or">or paste text</div>
+          <textarea id="resumeText" placeholder="Paste your resume text here..."></textarea>
+        </div>
+        <div class="input-card">
+          <label for="jobText">Job description</label>
+          <textarea id="jobText" placeholder="Paste the responsibilities and qualifications for one role..."></textarea>
+        </div>
+      </div>
+
+      <button id="analyzeBtn" class="btn primary wide">Analyze with JobFit AI</button>
+      <div id="error" class="error hidden"></div>
+
+      <div id="results" class="hidden">
+        <div class="metrics">
+          <div class="metric"><span id="score">—</span><small>semantic evidence score</small></div>
+          <div class="metric"><span id="matchedCount">—</span><small>strong requirements</small></div>
+          <div class="metric"><span id="gapCount">—</span><small>evidence gaps</small></div>
+        </div>
+
+        <div class="results-grid">
+          <div class="result-card">
+            <h3>Strongest matches</h3>
+            <div id="matches"></div>
+          </div>
+          <div class="result-card">
+            <h3>Evidence gaps</h3>
+            <div id="gaps"></div>
+          </div>
+        </div>
+
+        <div class="result-card full">
+          <h3>Resume evidence to lead with</h3>
+          <p class="muted">These are existing lines from your resume—not generated qualifications.</p>
+          <div id="ranked"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="architecture" class="architecture">
+      <div class="kicker">TECHNICAL ARCHITECTURE</div>
+      <h2>AI where it helps. Deterministic logic where it matters.</h2>
+      <div class="pipeline">
+        <div class="step"><b>1</b><span>PDF / DOCX / TXT</span><small>client-side extraction</small></div>
+        <div class="arrow">→</div>
+        <div class="step"><b>2</b><span>Requirement parsing</span><small>qualification-oriented sentence filtering</small></div>
+        <div class="arrow">→</div>
+        <div class="step accent"><b>3</b><span>Transformer embeddings</span><small>all-MiniLM-L6-v2 in-browser</small></div>
+        <div class="arrow">→</div>
+        <div class="step"><b>4</b><span>Evidence matching</span><small>cosine similarity + lexical signals</small></div>
+        <div class="arrow">→</div>
+        <div class="step"><b>5</b><span>Explainable output</span><small>exact supporting resume lines</small></div>
+      </div>
+
+      <div class="grid three cards">
+        <article><h3>AI proficiency</h3><p>Uses a transformer sentence-embedding model to capture semantic similarity beyond exact keyword overlap.</p></article>
+        <article><h3>Responsible design</h3><p>The model ranks evidence; it does not generate credentials. Every result remains traceable to user-provided text.</p></article>
+        <article><h3>Privacy-aware engineering</h3><p>Inference and file parsing happen in the browser. Resume contents are not sent to a JobFit backend.</p></article>
+      </div>
+    </section>
+
+    <section class="build">
+      <div>
+        <div class="kicker">AI-ASSISTED DEVELOPMENT</div>
+        <h2>Built with an AI-native engineering workflow.</h2>
+      </div>
+      <p>JobFit was developed iteratively with AI-assisted coding and review: using ChatGPT for architecture discussion, code review, edge-case analysis, UX refinement, and documentation, while keeping implementation choices verifiable in source control. The goal was not to outsource reasoning—it was to use AI as a development accelerator while preserving technical ownership.</p>
+    </section>
+
+    <footer>
+      <span>Built by Abdelrahman Radwan</span>
+      <a href="https://github.com/Abdelrahmany-Radwan/JobFit" target="_blank" rel="noreferrer">View source on GitHub ↗</a>
+    </footer>
+  </main>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

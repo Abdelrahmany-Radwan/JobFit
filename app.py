@@ -87,8 +87,9 @@ Resume PDF / DOCX / TXT → text extraction → skill detection → evidence mat
     )
 
     st.info(
-        "Next version: replace the hand-built phrase dictionary with embeddings or an NLP model, "
-        "add better section-aware resume parsing, and benchmark precision/recall on a labeled dataset."
+        "This Streamlit app is the transparent Python baseline. "
+        "The recruiter-facing web version in docs/ adds in-browser transformer embeddings "
+        "for semantic matching while preserving evidence traceability."
     )
 
 with demo:
