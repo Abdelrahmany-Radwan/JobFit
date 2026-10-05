@@ -36,3 +36,7 @@ jobs:
           test -s docs/index.html
           test -s docs/style.css
           test -s docs/app.js
+          test -s docs/assets/jobfit-mark.svg
+          test -s docs/assets/jobfit-preview.svg
+          test -s BRAND.md
+          grep -q "jobfit-preview.svg" README.md
