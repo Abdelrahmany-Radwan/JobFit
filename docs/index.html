@@ -160,7 +160,7 @@
         <section id="demo" class="demo reveal">
       <div class="demo-heading">
         <div><p class="eyebrow">Okay, your turn</p><h2>Resume on the left. Dream role on the right.</h2></div>
-        <div id="modelStatus" class="model-status"><span></span>Ready to analyze</div>
+        <div id="modelStatus" class="model-status" aria-live="polite"><span></span>Ready to analyze</div>
       </div>
 
       <div class="workspace">
@@ -180,7 +180,7 @@
         <button id="sampleBtn" class="sample">load sample</button>
         <button id="analyzeBtn" class="analyze">connect the dots <span>→</span></button>
       </div>
-      <div id="error" class="error hidden"></div>
+      <div id="error" class="error hidden" role="alert" aria-live="assertive"></div>
 
       <div id="results" class="results hidden">
         <div class="result-summary">
