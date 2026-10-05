@@ -249,3 +249,24 @@ sampleBtn?.addEventListener("click", () => {
   resultsEl.classList.add("hidden");
   analyzeBtn.scrollIntoView({behavior:"smooth", block:"center"});
 });
+
+
+document.querySelectorAll(".requirement[data-match]").forEach((req) => {
+  const key = req.dataset.match;
+  const evidence = document.querySelector('[data-evidence="' + key + '"]');
+  const path = document.querySelector('[data-path="' + key + '"]');
+  const on = () => {
+    req.classList.add("is-active");
+    evidence?.classList.add("is-active");
+    path?.classList.add("is-active");
+  };
+  const off = () => {
+    req.classList.remove("is-active");
+    evidence?.classList.remove("is-active");
+    path?.classList.remove("is-active");
+  };
+  req.addEventListener("mouseenter", on);
+  req.addEventListener("mouseleave", off);
+  req.addEventListener("focusin", on);
+  req.addEventListener("focusout", off);
+});
