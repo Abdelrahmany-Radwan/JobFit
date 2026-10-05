@@ -1,12 +1,14 @@
 # JobFit
 
+![JobFit product preview](docs/assets/jobfit-preview.svg)
+
 [![CI](https://img.shields.io/github/actions/workflow/status/Abdelrahmany-Radwan/JobFit/ci.yml?branch=main&label=build&style=flat-square)](https://github.com/Abdelrahmany-Radwan/JobFit/actions/workflows/ci.yml)
 [![Evaluation](https://img.shields.io/github/actions/workflow/status/Abdelrahmany-Radwan/JobFit/evaluation.yml?branch=main&label=evaluation&style=flat-square)](https://github.com/Abdelrahmany-Radwan/JobFit/actions/workflows/evaluation.yml)
 [![Deploy](https://img.shields.io/github/actions/workflow/status/Abdelrahmany-Radwan/JobFit/pages.yml?branch=main&label=deploy&style=flat-square)](https://github.com/Abdelrahmany-Radwan/JobFit/actions/workflows/pages.yml)
 
 JobFit is an evidence-first resume-to-job matching system. It maps individual job requirements to supporting resume text using in-browser sentence embeddings, then exposes the evidence behind each match instead of generating new qualifications.
 
-**[Live application](https://abdelrahmany-radwan.github.io/JobFit/)** · **[Architecture](ARCHITECTURE.md)**
+**[Live application](https://abdelrahmany-radwan.github.io/JobFit/)** · **[Architecture](ARCHITECTURE.md)** · **[Brand system](BRAND.md)** · **[v1.0.0 release](https://github.com/Abdelrahmany-Radwan/JobFit/releases/tag/v1.0.0)**
 
 > **Product direction:** JobFit is designed around evidence as a visual object: resumes, requirements, source lines, and their connections. The interface intentionally avoids presenting semantic matching as a black-box “AI score.”
 
@@ -80,6 +82,7 @@ The interface and retrieval system follow the same constraint: **show the connec
 ├── analyzer.py           # deterministic matching baseline
 ├── app.py                # Streamlit reference interface
 ├── ARCHITECTURE.md
+├── BRAND.md
 ├── CONTRIBUTING.md
 └── LICENSE
 ```
