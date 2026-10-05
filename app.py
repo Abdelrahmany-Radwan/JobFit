@@ -4,7 +4,7 @@ from docx import Document
 from pypdf import PdfReader
 from analyzer import analyze
 
-st.set_page_config(page_title="JobFit — Interview Demo", page_icon="🎯", layout="wide")
+st.set_page_config(page_title="JobFit — Resume Match Explainer", page_icon="🎯", layout="wide")
 
 st.markdown("""
 <style>
@@ -75,7 +75,7 @@ Resume PDF / DOCX / TXT → text extraction → skill detection → evidence mat
         """
     )
 
-    st.subheader("Engineering decisions I can explain in an interview")
+    st.subheader("Engineering decisions")
     st.markdown(
         """
 - **Separated UI from analysis logic:** app.py handles interaction and file extraction; analyzer.py handles matching.
@@ -88,7 +88,7 @@ Resume PDF / DOCX / TXT → text extraction → skill detection → evidence mat
 
     st.info(
         "This Streamlit app is the transparent Python baseline. "
-        "The recruiter-facing web version in docs/ adds in-browser transformer embeddings "
+        "The public web version in docs/ adds in-browser transformer embeddings "
         "for semantic matching while preserving evidence traceability."
     )
 
