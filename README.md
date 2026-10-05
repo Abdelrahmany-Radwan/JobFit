@@ -1,77 +1,105 @@
-# JobFit — Resume Match Explainer
+# JobFit — AI Resume Match Explainer
 
-JobFit is a local-first resume-to-job comparison tool. It helps candidates understand which job skills are already supported by their resume, which requirements do not have visible evidence yet, and which existing resume lines are most relevant to move higher before applying.
+**Live demo:** https://abdelrahmany-radwan.github.io/JobFit/
+
+JobFit is a privacy-first, explainable resume-to-job matching application. It uses transformer sentence embeddings plus deterministic evidence matching to compare what a role asks for with what a resume can actually support.
+
+The core idea is simple:
+
+> **Use AI to understand meaning. Use evidence to keep the result honest.**
 
 ## Why I built it
 
-Many resume tools jump straight to rewriting. That can create a different problem: candidates may end up with bullets that sound stronger than what they actually did.
+Keyword-only resume scanners can miss semantic matches. Generative resume tools can create the opposite problem: rewriting experience in ways that sound stronger than what the candidate actually did.
 
-I built JobFit around a different question:
+JobFit is designed between those two extremes. It uses semantic AI to understand similarity, but it only surfaces evidence that already exists in the candidate's resume.
 
-**What does the resume already prove, and where is the evidence missing?**
+## What the live app does
 
-The project is intentionally transparent. It shows the exact job line and resume line used for each match, and it never invents qualifications.
+- Accepts PDF, DOCX, TXT, or pasted resume content.
+- Accepts a pasted job description.
+- Identifies requirement-oriented job statements.
+- Runs **all-MiniLM-L6-v2 sentence embeddings in the browser** with Transformers.js.
+- Combines semantic similarity with lexical evidence signals.
+- Shows the strongest requirement-to-resume matches.
+- Flags job requirements that do not have strong visible evidence.
+- Ranks existing resume lines the candidate should lead with.
+- Keeps resume processing client-side; JobFit has no resume-storage backend.
+- Falls back to local lexical similarity if the transformer model is unavailable.
 
-## What it does
+## AI / ML architecture
 
-1. Accepts a PDF, DOCX, TXT, or pasted resume.
-2. Accepts a pasted job description.
-3. Detects recognized technical and professional skills in the posting.
-4. Checks whether the resume contains supporting evidence for each skill.
-5. Calculates a documented skill coverage score.
-6. Ranks the candidate's existing resume lines that are most relevant to the job.
-7. Surfaces requirement lines that still need manual review.
+\`\`\`
+Resume + Job Description
+        ↓
+Client-side file parsing
+        ↓
+Requirement-oriented sentence extraction
+        ↓
+Transformer sentence embeddings
+(all-MiniLM-L6-v2 via Transformers.js)
+        ↓
+Cosine similarity + lexical evidence signals
+        ↓
+Explainable requirement ↔ resume evidence pairs
+\`\`\`
 
-## Scoring
+The transformer model improves matching beyond exact keywords. The output remains explainable because every score is tied back to an exact line from the user-provided resume.
 
-- Required skill: weight 2
-- Preferred skill: weight 1
-- Coverage = weighted skills with resume evidence / total weighted detected skills
+## Engineering decisions
 
-This score is not an ATS score, hiring probability, or recruiter prediction. It only measures coverage of the skills currently recognized by the matcher.
+### Semantic AI instead of keyword-only matching
+The live version uses a real sentence-transformer embedding model to represent resume and job text semantically.
 
-## Design decisions
+### Explainability by design
+JobFit does not ask a model to invent a credential. It ranks evidence that already exists and displays the supporting text.
 
-- Local-first: resume files are processed locally while the app runs.
-- Explainable: every match points back to evidence in both documents.
-- No hallucinated qualifications: the system does not create credentials, employers, projects, or skills.
-- Separation of concerns: Streamlit UI/file handling lives in app.py; matching logic lives in analyzer.py.
-- Extensible matcher: the skill dictionary can be expanded for specific industries.
+### Privacy-aware inference
+The public application is static. PDF/DOCX parsing and embedding inference run in the user's browser instead of sending resume content to a JobFit application server.
+
+### Resilient execution
+If the transformer model cannot load, the interface continues with local lexical similarity instead of failing completely.
 
 ## Tech stack
 
-Python, Streamlit, pypdf, python-docx, regular expressions, and lightweight text ranking.
+- JavaScript / HTML / CSS
+- Transformers.js
+- Xenova/all-MiniLM-L6-v2
+- PDF.js
+- Mammoth.js
+- GitHub Pages
+- Python / Streamlit reference implementation
+- Git / GitHub
 
-## Run locally
+## AI-assisted development workflow
 
-python -m pip install -r requirements.txt
+JobFit was developed with an AI-native engineering workflow. ChatGPT was used for architecture discussion, code review, edge-case reasoning, UX refinement, and documentation while implementation decisions remained reviewable in GitHub source control.
 
-python -m streamlit run app.py
+I use AI coding tools as development accelerators rather than replacements for technical ownership: suggested changes are inspected, tested against intended behavior, and kept explainable enough to defend technically.
 
-Then open the local Streamlit URL, usually http://localhost:8501.
+## Repository structure
 
-## Interview demo flow
+- \`docs/\` — recruiter-facing public web application deployed to GitHub Pages.
+- \`app.py\` — Streamlit reference implementation.
+- \`analyzer.py\` — transparent Python matching baseline.
+- \`.github/workflows/pages.yml\` — GitHub Pages deployment workflow.
 
-1. Open Why I built it and explain the problem.
-2. Switch to Live demo.
-3. Paste a resume and one real job description.
-4. Show the coverage score.
-5. Open one Strongest match to show evidence from both sides.
-6. Show one Gap and explain that the system refuses to pretend the skill exists.
-7. Show Existing resume evidence to move higher.
-8. Close with what you would build next.
+## Interview talking points
 
-## What I would improve next
+**Problem:** Resume tools often choose between brittle keyword matching and over-generative rewriting.
 
-- Replace the hand-built phrase matcher with embeddings or a trained NLP classifier.
-- Add section-aware resume parsing.
-- Detect equivalent skills and semantic matches.
-- Benchmark precision and recall on a labeled dataset.
-- Add tests for file extraction, scoring, and skill detection.
-- Add optional deployment while keeping privacy controls clear.
+**Engineering choice:** I built a hybrid system that uses transformer embeddings for semantic understanding but requires evidence from the candidate's own resume.
 
-## Important limitations
+**Responsible AI choice:** AI ranks evidence; it does not manufacture experience.
 
-- Scanned image PDFs may require OCR or manual text paste.
-- The current skill matcher is dictionary-based.
-- The tool does not evaluate education, work authorization, location, scheduling, or every job requirement automatically.
+**Privacy choice:** The public demo performs inference in the browser so resume contents do not need to be stored by an application backend.
+
+**Technical ownership:** I can explain the parsing, embedding model, cosine similarity, lexical fallback, scoring thresholds, UI, and deployment path.
+
+## Resume-ready project description
+
+**JobFit — AI Resume Match Explainer | JavaScript, Transformers.js, Python, NLP**
+
+Built a privacy-first resume-to-job matching application that runs MiniLM transformer embeddings in-browser to map job requirements to supporting resume evidence, combining semantic similarity with lexical signals and explainable requirement-to-resume traceability.
+
+Designed client-side PDF/DOCX processing and graceful model fallback so candidates can analyze role fit without uploading resume data to a JobFit backend.
