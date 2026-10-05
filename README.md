@@ -42,19 +42,17 @@ If the embedding model is unavailable, the matcher falls back to lexical scoring
 
 ## Evaluation
 
-The repository includes a reproducible retrieval benchmark comparing:
+JobFit includes a reproducible retrieval benchmark with thresholds selected on a **development split** and metrics reported on a **held-out test split**.
 
-| Method | Role |
-| --- | --- |
-| Lexical overlap | deterministic baseline |
-| MiniLM cosine similarity | semantic baseline |
-| Hybrid scorer | JobFit retrieval strategy |
+| Method | Precision | Recall | F1 | Accuracy |
+| --- | ---: | ---: | ---: | ---: |
+| Lexical baseline | 0.625 | 1.000 | 0.769 | 0.625 |
+| MiniLM semantic | 0.833 | 1.000 | 0.909 | 0.875 |
+| JobFit hybrid | 0.833 | 1.000 | 0.909 | 0.875 |
 
-Thresholds are selected on a **development split** and final metrics are calculated on a **held-out test split**. The workflow also records inference latency on the GitHub Actions CPU runner.
+On the GitHub Actions CPU runner, lexical scoring averaged **0.01 ms/pair** and MiniLM semantic scoring had a **7.98 ms median/pair**, excluding model download/load time.
 
-The current benchmark is intentionally a small curated regression set. It is useful for comparing implementation changes; it is **not** presented as a general measure of hiring, ATS, or real-world recruiting accuracy.
-
-Run details and generated metrics are available from the **Evaluate matching model** GitHub Actions workflow.
+The benchmark currently contains 24 curated requirement/evidence pairs (16 dev, 8 held-out test). It is a regression benchmark for comparing retrieval behavior—not a claim about ATS, hiring, or population-level recruiting accuracy. The full methodology and generated results live in `evaluation/` and the **Evaluate matching model** workflow.
 
 ## Product + engineering principles
 
