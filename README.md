@@ -54,7 +54,7 @@ JobFit includes a reproducible retrieval benchmark with thresholds selected on a
 
 On the GitHub Actions CPU runner, lexical scoring averaged **0.008 ms/pair** and MiniLM semantic scoring had a **6.26 ms median/pair**, excluding model download/load time.
 
-The benchmark currently contains 48 curated requirement/evidence pairs (28 dev, 20 held-out test), including hard negatives. It is a regression benchmark for comparing retrieval behavior—not a claim about ATS, hiring, or population-level recruiting accuracy. The full methodology and generated results live in `evaluation/` and the **Evaluate matching model** workflow.
+The benchmark currently contains 48 curated requirement/evidence pairs (28 dev, 20 held-out test), including hard negatives. It is a regression benchmark for comparing retrieval behavior—not a claim about ATS, hiring, or population-level recruiting accuracy. The evaluator also reports a 95% Wilson interval for held-out accuracy and lists every misclassified test example for error analysis. The full methodology and generated results live in `evaluation/` and the **Evaluate matching model** workflow.
 
 ## Product + engineering principles
 
@@ -83,7 +83,9 @@ The interface and retrieval system follow the same constraint: **show the connec
 ├── app.py                # Streamlit reference interface
 ├── ARCHITECTURE.md
 ├── BRAND.md
+├── CHANGELOG.md
 ├── CONTRIBUTING.md
+├── SECURITY.md
 └── LICENSE
 ```
 
