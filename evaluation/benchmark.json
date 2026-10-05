@@ -166,5 +166,173 @@
     "evidence": "Wrote architecture and contribution documentation describing the matching pipeline, privacy model, fallback behavior, and delivery workflow.",
     "label": 1,
     "split": "dev"
+  },
+  {
+    "id": "25",
+    "requirement": "Optimize CUDA kernels for GPU workloads.",
+    "evidence": "Built machine learning models in Python using scikit-learn.",
+    "label": 0,
+    "split": "test"
+  },
+  {
+    "id": "26",
+    "requirement": "Develop production machine learning systems in C++.",
+    "evidence": "Completed introductory Python coursework and built small data-analysis scripts.",
+    "label": 0,
+    "split": "dev"
+  },
+  {
+    "id": "27",
+    "requirement": "Present technical findings to business stakeholders.",
+    "evidence": "Presented smart-neighborhood research findings and recommendations to a project team.",
+    "label": 1,
+    "split": "dev"
+  },
+  {
+    "id": "28",
+    "requirement": "Build dashboards to communicate operational trends.",
+    "evidence": "Created Power BI dashboards showing energy-use patterns and project metrics.",
+    "label": 1,
+    "split": "test"
+  },
+  {
+    "id": "29",
+    "requirement": "Work with cloud storage services.",
+    "evidence": "Demonstrated Azure Files and Blob Storage configuration and security concepts.",
+    "label": 1,
+    "split": "dev"
+  },
+  {
+    "id": "30",
+    "requirement": "Administer Kubernetes clusters in production.",
+    "evidence": "Deployed a static website using GitHub Pages and GitHub Actions.",
+    "label": 0,
+    "split": "test"
+  },
+  {
+    "id": "31",
+    "requirement": "Use GitHub Actions to automate testing and deployment.",
+    "evidence": "Configured separate GitHub Actions workflows for validation, model evaluation, and Pages deployment.",
+    "label": 1,
+    "split": "dev"
+  },
+  {
+    "id": "32",
+    "requirement": "Design retrieval systems using sentence embeddings.",
+    "evidence": "Implemented MiniLM sentence embeddings and cosine similarity to rank resume evidence against job requirements.",
+    "label": 1,
+    "split": "test"
+  },
+  {
+    "id": "33",
+    "requirement": "Fine-tune large language models on proprietary datasets.",
+    "evidence": "Used a pre-trained MiniLM model for sentence embeddings in a browser application.",
+    "label": 0,
+    "split": "dev"
+  },
+  {
+    "id": "34",
+    "requirement": "Build explainable AI systems with traceable outputs.",
+    "evidence": "Designed matching results to point back to the exact resume text supporting each requirement.",
+    "label": 1,
+    "split": "test"
+  },
+  {
+    "id": "35",
+    "requirement": "Develop REST APIs with authentication and rate limiting.",
+    "evidence": "Built a client-side JavaScript application with no application backend.",
+    "label": 0,
+    "split": "dev"
+  },
+  {
+    "id": "36",
+    "requirement": "Perform statistical analysis on experimental data.",
+    "evidence": "Analyzed survey and energy-use data to identify patterns and summarize findings.",
+    "label": 1,
+    "split": "test"
+  },
+  {
+    "id": "37",
+    "requirement": "Manage enterprise network infrastructure.",
+    "evidence": "Performed basic networking setup and troubleshooting during an IT internship.",
+    "label": 0,
+    "split": "dev"
+  },
+  {
+    "id": "38",
+    "requirement": "Troubleshoot end-user hardware and connectivity issues.",
+    "evidence": "Diagnosed device, software, and network connectivity problems for users and documented resolutions.",
+    "label": 1,
+    "split": "test"
+  },
+  {
+    "id": "39",
+    "requirement": "Build React front ends with component state management.",
+    "evidence": "Created a static browser interface with HTML, CSS, and vanilla JavaScript.",
+    "label": 0,
+    "split": "dev"
+  },
+  {
+    "id": "40",
+    "requirement": "Translate product requirements into implemented features.",
+    "evidence": "Turned resume-matching requirements into document parsing, semantic ranking, explainable results, and a deployed web experience.",
+    "label": 1,
+    "split": "test"
+  },
+  {
+    "id": "41",
+    "requirement": "Train computer vision models for image classification.",
+    "evidence": "Completed Microsoft Learn modules covering Azure AI Vision concepts.",
+    "label": 0,
+    "split": "dev"
+  },
+  {
+    "id": "42",
+    "requirement": "Communicate with customers and resolve service issues.",
+    "evidence": "Worked directly with families and children as a kids instructor and handled day-to-day questions.",
+    "label": 1,
+    "split": "test"
+  },
+  {
+    "id": "43",
+    "requirement": "Build data pipelines with SQL and ETL tools.",
+    "evidence": "Used Python and pandas to clean tabular data and automate report generation.",
+    "label": 0,
+    "split": "dev"
+  },
+  {
+    "id": "44",
+    "requirement": "Use Python for data cleaning and automation.",
+    "evidence": "Built Python scripts with pandas to clean survey data and automate weekly reporting.",
+    "label": 1,
+    "split": "test"
+  },
+  {
+    "id": "45",
+    "requirement": "Implement semantic search with vector similarity.",
+    "evidence": "Compared MiniLM embeddings with cosine similarity to retrieve the strongest supporting resume lines.",
+    "label": 1,
+    "split": "dev"
+  },
+  {
+    "id": "46",
+    "requirement": "Operate distributed training across multiple GPUs.",
+    "evidence": "Ran a compact embedding model in the browser for semantic matching.",
+    "label": 0,
+    "split": "test"
+  },
+  {
+    "id": "47",
+    "requirement": "Evaluate machine learning system behavior with held-out data.",
+    "evidence": "Created a dev/test retrieval benchmark and measured precision, recall, F1, accuracy, and latency.",
+    "label": 1,
+    "split": "dev"
+  },
+  {
+    "id": "48",
+    "requirement": "Build recommendation systems using collaborative filtering.",
+    "evidence": "Ranked resume evidence against job requirements with semantic similarity.",
+    "label": 0,
+    "split": "test"
   }
 ]
