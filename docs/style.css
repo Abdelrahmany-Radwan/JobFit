@@ -184,3 +184,28 @@ button:focus-visible,a:focus-visible,summary:focus-visible{border-radius:2px}
  .hero-copy-human h1{font-size:61px}.desk-scene{height:480px}.resume-paper-human{width:72%;left:2%;transform:scale(.9) rotate(-2deg);transform-origin:left top}.job-scrap-human{width:45%;right:1%;top:150px;transform:scale(.86) rotate(3deg);transform-origin:right top}.desk-sticker{right:6%;bottom:30px}.margin-note{display:none}
  .receipt-card{width:84%}.founder-note p{font-size:18px}.closing:before{display:none}
 }
+
+
+/* signature evidence-map interaction */
+.match-explainer{
+  position:absolute;left:33%;bottom:18px;width:310px;background:#fffdf7;border:1px solid #c9c1b5;
+  padding:14px 16px;z-index:8;box-shadow:8px 10px 0 rgba(48,42,34,.08);transform:rotate(1deg)
+}
+.match-explainer small{display:block;font-size:7px;letter-spacing:.15em;color:#72756f;margin-bottom:6px}
+.match-explainer strong{display:block;font:400 18px/1.05 "Instrument Serif",serif;margin-bottom:5px}
+.match-explainer p{font-size:9px;line-height:1.45;color:#686d67;margin:0}
+.job-req.is-active{background:rgba(216,239,102,.12);color:white;padding-left:6px}
+.resume-paper-human .marked.is-active{
+  transform:translateX(5px);
+  box-shadow:0 0 0 2px rgba(216,239,102,.75);
+  background:linear-gradient(transparent 40%,#d8ef66 40%,#d8ef66 92%,transparent 92%)
+}
+.resume-paper-human .marked.peach.is-active{
+  background:linear-gradient(transparent 40%,#efb49d 40%,#efb49d 92%,transparent 92%)
+}
+.sketch-path{stroke-dasharray:8 8;stroke-dashoffset:0;transition:opacity .25s,stroke-width .25s}
+.sketch-path.is-active{
+  opacity:1;stroke-width:3;animation:trace-evidence 1.2s linear infinite
+}
+@keyframes trace-evidence{to{stroke-dashoffset:-32}}
+@media(max-width:560px){.match-explainer{left:8%;right:8%;bottom:10px;width:auto;transform:none}}
