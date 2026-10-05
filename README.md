@@ -46,13 +46,13 @@ JobFit includes a reproducible retrieval benchmark with thresholds selected on a
 
 | Method | Precision | Recall | F1 | Accuracy |
 | --- | ---: | ---: | ---: | ---: |
-| Lexical baseline | 0.625 | 1.000 | 0.769 | 0.625 |
-| MiniLM semantic | 0.833 | 1.000 | 0.909 | 0.875 |
-| JobFit hybrid | 0.833 | 1.000 | 0.909 | 0.875 |
+| Lexical baseline | 0.650 | 1.000 | 0.788 | 0.650 |
+| MiniLM semantic | 1.000 | 0.846 | 0.917 | 0.900 |
+| JobFit hybrid | 1.000 | 0.846 | 0.917 | 0.900 |
 
-On the GitHub Actions CPU runner, lexical scoring averaged **0.01 ms/pair** and MiniLM semantic scoring had a **7.98 ms median/pair**, excluding model download/load time.
+On the GitHub Actions CPU runner, lexical scoring averaged **0.008 ms/pair** and MiniLM semantic scoring had a **6.26 ms median/pair**, excluding model download/load time.
 
-The benchmark currently contains 24 curated requirement/evidence pairs (16 dev, 8 held-out test). It is a regression benchmark for comparing retrieval behavior—not a claim about ATS, hiring, or population-level recruiting accuracy. The full methodology and generated results live in `evaluation/` and the **Evaluate matching model** workflow.
+The benchmark currently contains 48 curated requirement/evidence pairs (28 dev, 20 held-out test), including hard negatives. It is a regression benchmark for comparing retrieval behavior—not a claim about ATS, hiring, or population-level recruiting accuracy. The full methodology and generated results live in `evaluation/` and the **Evaluate matching model** workflow.
 
 ## Product + engineering principles
 
