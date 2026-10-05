@@ -87,3 +87,21 @@ footer{width:min(1220px,94vw);margin:auto;border-top:1px solid var(--line);paddi
   .logo-item:nth-child(even){border-right:0}
   .faq summary{font-size:15px}
 }
+
+/* continuous company marquee */
+.company-strip{overflow:hidden}
+.company-head{grid-template-columns:1.15fr .85fr}
+.company-head>div h2{font-family:"Instrument Serif",serif;font-size:clamp(40px,5vw,64px);font-weight:400;line-height:1;letter-spacing:-.04em;margin:0}
+.marquee-shell{position:relative;width:100vw;margin-left:calc(50% - 50vw);border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#faf8f2;overflow:hidden}
+.logo-marquee{overflow:hidden}
+.logo-track{display:flex;width:max-content;align-items:center;animation:logo-scroll 34s linear infinite;will-change:transform}
+.marquee-logo{width:210px;height:126px;display:flex;align-items:center;justify-content:center;gap:12px;border-right:1px solid var(--line);flex:0 0 auto}
+.marquee-logo img{width:58px;height:46px;object-fit:contain}
+.marquee-logo span{font-size:12px;font-weight:600;letter-spacing:-.01em;color:#525751}
+.logo-marquee:hover .logo-track{animation-play-state:paused}
+.marquee-fade{position:absolute;top:0;bottom:0;width:9vw;z-index:2;pointer-events:none}
+.marquee-fade.left{left:0;background:linear-gradient(90deg,#faf8f2,rgba(250,248,242,0))}
+.marquee-fade.right{right:0;background:linear-gradient(270deg,#faf8f2,rgba(250,248,242,0))}
+@keyframes logo-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.logo-track{animation:none}}
+@media(max-width:700px){.marquee-logo{width:160px;height:100px}.marquee-logo img{width:46px;height:38px}.company-head{grid-template-columns:1fr}}
