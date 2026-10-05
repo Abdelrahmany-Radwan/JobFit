@@ -1,67 +1,179 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="JobFit connects job requirements to evidence already in your resume.">
-<meta name="theme-color" content="#f2efe6"><title>JobFit — see what actually fits</title>
-<link rel="stylesheet" href="./style.css">
-<script src="https://cdn.jsdelivr.net/npm/mammoth@1.8.0/mammoth.browser.min.js"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="JobFit helps students connect job requirements to evidence already in their resume." />
+  <meta name="theme-color" content="#f6f4ee" />
+  <title>JobFit — Find the evidence in your experience</title>
+  <link rel="stylesheet" href="./style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/mammoth@1.8.0/mammoth.browser.min.js"></script>
 </head>
 <body>
-<div class="progress" id="progress"></div>
-<header><a class="logo" href="#top">JOB<span>FIT</span></a><nav><a href="#why">why</a><a href="#demo">try it</a><a href="#system">under the hood</a><a href="https://github.com/Abdelrahmany-Radwan/JobFit" target="_blank" rel="noreferrer">github ↗</a></nav></header>
-<main id="top">
-<section class="scene hero reveal">
-  <div class="hero-type"><p>for the “am I even qualified?” moment</p><h1>SEE<br>WHAT<br><i>FITS.</i></h1><a href="#demo">try your resume ↘</a></div>
-  <div class="desk">
-    <div class="sheet s1"><b>JORDAN LEE</b><small>DATA ANALYTICS</small><hr><span></span><span></span><span></span></div>
-    <div class="sheet s2"><b>MAYA CHEN</b><small>COMPUTER SCIENCE</small><hr><span></span><span></span><span></span></div>
-    <div class="sheet s3"><div class="stamp">YOUR<br>RESUME</div><b>ALEX MORGAN</b><small>INFORMATION SYSTEMS</small><hr><em>EXPERIENCE</em><span></span><span class="hit"></span><span></span><em>PROJECTS</em><span class="hit coral"></span></div>
-    <div class="jobcard"><small>THE ROLE</small><h3>Data & AI<br>Intern</h3><p>Python + data</p><p class="found">technical communication <b>✓</b></p><p class="found">turn analysis into decisions <b>✓</b></p><p>team collaboration</p></div>
-    <div class="thread t1"></div><div class="thread t2"></div><div class="bubble">2 connections<br><b>worth opening</b></div>
-  </div>
-  <div class="ticker"><span>NO MYSTERY SCORE</span><span>YOUR WORDS, YOUR EVIDENCE</span><span>RUNS IN YOUR BROWSER</span><span>NO FAKE GLOW-UP</span></div>
-</section>
+  <div class="progress" id="progress"></div>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="JobFit home"><span class="brand-mark">J</span><span>JobFit</span></a>
+    <nav>
+      <a href="#story">Story</a>
+      <a href="#demo">Try it</a>
+      <a href="#how">How it works</a>
+      <a class="nav-github" href="https://github.com/Abdelrahmany-Radwan/JobFit" target="_blank" rel="noreferrer">GitHub ↗</a>
+    </nav>
+  </header>
 
-<section id="why" class="scene lime reveal">
-  <div class="giant">SAME<br>WORK.</div>
-  <div class="note left"><small>your resume says</small><strong>Built dashboards from energy-use data.</strong><div class="underline"></div></div>
-  <div class="note right"><small>the job says</small><strong>Data visualization & business insights.</strong><div class="check">↙ same signal</div></div>
-  <div class="sidecopy"><b>Different words ≠ different experience.</b><p>JobFit looks for meaning, then points back to the line that proves it.</p></div>
-</section>
+  <main id="top">
+    <section class="hero reveal">
+      <div class="hero-copy">
+        <div class="hero-kicker"><span>made for the “am I even qualified?” moment</span><i>↗</i></div>
+        <h1>Stop guessing.<br><em>See what actually fits.</em></h1>
+        <p class="lede">Drop in your resume. Paste the job. JobFit connects the dots using the experience you already have—no fake glow-up, no mystery score.</p>
+        <div class="actions">
+          <a class="button primary" href="#demo">try yours — it takes a minute</a>
+          <a class="button secondary" href="#story">wait, why JobFit?</a>
+        </div>
+        <div class="trust-strip"><span>your resume stays in your browser</span><span>no made-up experience</span><span>actual evidence, not vibes</span></div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="resume-stack">
+          <div class="resume-card card-back">
+            <div class="resume-name">MAYA CHEN</div>
+            <div class="resume-role">Computer Science · Class of 2028</div>
+            <div class="resume-rule"></div>
+            <div class="line w84"></div><div class="line w62"></div><div class="line w76"></div>
+          </div>
+          <div class="resume-card card-middle">
+            <div class="resume-name">JORDAN LEE</div>
+            <div class="resume-role">Data Analytics · Class of 2027</div>
+            <div class="resume-rule"></div>
+            <div class="line w90"></div><div class="line w70"></div><div class="line w82"></div>
+          </div>
+          <div class="resume-card card-front">
+            <div class="resume-topline">
+              <div><div class="resume-name">ALEX MORGAN</div><div class="resume-role">Information Systems · Class of 2027</div></div>
+              <span class="page-chip">RESUME</span>
+            </div>
+            <div class="resume-rule"></div>
+            <div class="resume-section">EXPERIENCE</div>
+            <div class="line w90"></div>
+            <div class="evidence-highlight"><span></span><div class="line w82"></div></div>
+            <div class="line w70"></div>
+            <div class="resume-section">PROJECTS</div>
+            <div class="evidence-highlight second"><span></span><div class="line w76"></div></div>
+            <div class="line w60"></div>
+          </div>
+        </div>
+        <div class="role-card">
+          <div class="role-company">OPPORTUNITY</div>
+          <div class="role-title">Data & AI Intern</div>
+          <div class="role-rule"></div>
+          <div class="requirement"><b>01</b><span>Build with Python and data</span></div>
+          <div class="requirement active"><b>02</b><span>Communicate technical work clearly</span></div>
+          <div class="requirement active"><b>03</b><span>Turn analysis into decisions</span></div>
+          <div class="requirement"><b>04</b><span>Collaborate across a team</span></div>
+        </div>
+        <div class="match-path path-one"></div>
+        <div class="match-path path-two"></div>
+        <div class="match-bubble">2 strong connections <b>✓</b></div>
+      </div>
+    </section>
 
-<section class="scene pink reveal">
-  <div class="number">02</div><div class="pink-title">NO<br><i>FAKE</i><br>GLOW-UP.</div>
-  <div class="receipt"><div class="receipt-head">JOBFIT / RECEIPTS</div><p>Requirement</p><b>Communicate technical ideas clearly</b><hr><p>Evidence found</p><b>Presented cloud concepts to student attendees using step-by-step demos.</b><div class="receipt-foot">source → your actual resume</div></div>
-  <div class="caption">If the resume can't support it,<br><b>JobFit shouldn't pretend it can.</b></div>
-</section>
+    <section id="story" class="story reveal">
+      <div class="section-number">01</div>
+      <div>
+        <p class="eyebrow">Why this exists</p>
+        <h2>Job descriptions are weirdly good at making capable people feel underqualified.</h2>
+        <p class="story-lead">A class project says “dashboard.” The job says “data visualization.” You did the thing—the wording just doesn’t look the same.</p>
+      </div>
+      <div class="story-body">
+        <p>Keyword scanners miss the connection. Generative tools sometimes “help” by turning your experience into something you never actually did. Neither felt right.</p>
+        <p>So JobFit has one rule: <strong>understand the meaning, then point back to the receipts.</strong> If your resume cannot support it, JobFit should not pretend it can.</p>
+      </div>
+    </section>
 
-<section id="demo" class="scene demo reveal">
-  <div class="demo-intro"><span>03 / YOUR TURN</span><h2>Drop the résumé.<br>Paste the role.<br><i>Connect the dots.</i></h2><div id="modelStatus" class="status">ready to analyze</div></div>
-  <div class="machine">
-    <div class="machine-bar"><b>JOBFIT</b><span>evidence matcher</span><i>● ● ●</i></div>
-    <div class="inputs">
-      <div class="inputpane"><div class="labelrow"><label>Your résumé</label><small>PDF · DOCX · TXT</small></div><label class="dropzone" for="resumeFile"><b>choose a file</b><span>or paste below ↘</span></label><input id="resumeFile" class="file-input" type="file" accept=".pdf,.docx,.txt"><textarea id="resumeText" placeholder="Paste your résumé text here…"></textarea></div>
-      <div class="inputpane rolepane"><div class="labelrow"><label>The role</label><small>JOB DESCRIPTION</small></div><textarea id="jobText" placeholder="Paste the responsibilities and qualifications here…"></textarea></div>
-    </div>
-    <button id="analyzeBtn" class="analyze">connect the dots <span>→</span></button><div id="error" class="error hidden"></div>
-    <div id="results" class="results hidden">
-      <div class="scoreline"><div><small>EVIDENCE ALIGNMENT</small><strong id="score">—</strong></div><p>Not an ATS score. A map of what your résumé can actually support.</p></div>
-      <div class="counts"><div><b id="matchedCount">—</b><span>strong connections</span></div><div><b id="gapCount">—</b><span>worth reviewing</span></div></div>
-      <div class="resultcols"><article><h3>↳ evidence found</h3><div id="matches"></div></article><article><h3>↳ look again</h3><div id="gaps"></div></article></div>
-      <article class="ranked"><h3>lines doing the most work</h3><div id="ranked"></div></article>
-    </div>
-  </div>
-</section>
+    <section class="principles reveal">
+      <article><span>01</span><h3>Understand meaning</h3><p>Semantic embeddings compare ideas, not only identical words.</p></article>
+      <article><span>02</span><h3>Show the evidence</h3><p>Every useful result points back to an existing resume line.</p></article>
+      <article><span>03</span><h3>Respect the document</h3><p>Resume processing stays in the browser instead of being stored by JobFit.</p></article>
+    </section>
 
-<section id="system" class="scene blue reveal">
-  <div class="number">04</div><h2>NOT<br>MAGIC.<br><i>MATCHING.</i></h2>
-  <div class="pipeline"><div><b>01</b><strong>PARSE</strong><p>PDF · DOCX · text</p></div><div class="arrow">→</div><div><b>02</b><strong>EMBED</strong><p>MiniLM in browser</p></div><div class="arrow">→</div><div><b>03</b><strong>COMPARE</strong><p>semantic + lexical</p></div><div class="arrow">→</div><div><b>04</b><strong>TRACE</strong><p>back to evidence</p></div></div>
-  <div class="techcard"><small>WHY THIS WAY?</small><p>Semantic similarity catches related meaning. Lexical overlap keeps an exact-match signal. If the model can't load, JobFit falls back instead of becoming a broken page.</p><a href="https://github.com/Abdelrahmany-Radwan/JobFit/blob/main/ARCHITECTURE.md" target="_blank" rel="noreferrer">read the architecture ↗</a></div>
-</section>
+    <section class="wording-board reveal" aria-label="Examples of semantic matching">
+      <div class="board-head">
+        <div><p class="eyebrow">same experience. different words.</p><h2>The job post rarely talks like your resume.</h2></div>
+        <p>JobFit looks for the connection between what you did and what the role is asking for—not just copy-pasted keywords.</p>
+      </div>
+      <div class="board-canvas">
+        <div class="scrap scrap-a"><small>ON YOUR RESUME</small><strong>Built dashboards from energy-use data</strong><span class="tape"></span></div>
+        <div class="scribble arrow-a">↝</div>
+        <div class="scrap scrap-b"><small>IN THE JOB POST</small><strong>Data visualization & insights</strong></div>
+        <div class="scrap scrap-c"><small>ON YOUR RESUME</small><strong>Presented cloud concepts to student attendees</strong><span class="tape blue"></span></div>
+        <div class="scribble arrow-b">↝</div>
+        <div class="scrap scrap-d"><small>IN THE JOB POST</small><strong>Communicate technical ideas clearly</strong></div>
+        <div class="board-note">not the same words.<br><b>still the same signal.</b></div>
+      </div>
+    </section>
 
-<section class="scene end reveal"><div class="end-small">the whole idea, really</div><h2>YOU DID<br>THE WORK.<br><i>SEE WHERE<br>IT FITS.</i></h2><a href="#demo">run JobFit ↑</a></section>
-</main>
-<footer><b>JOBFIT / 2026</b><span>evidence-first resume matching</span><a href="https://github.com/Abdelrahmany-Radwan/JobFit" target="_blank" rel="noreferrer">source ↗</a></footer>
-<script type="module" src="./app.js"></script>
-</body></html>
+    <section id="demo" class="demo reveal">
+      <div class="demo-heading">
+        <div><p class="eyebrow">Okay, your turn</p><h2>Resume on the left. Dream role on the right.</h2></div>
+        <div id="modelStatus" class="model-status"><span></span>Ready to analyze</div>
+      </div>
+
+      <div class="workspace">
+        <div class="field">
+          <div class="field-head"><label for="resumeFile">Your resume</label><small>PDF · DOCX · TXT</small></div>
+          <label class="dropzone" for="resumeFile"><b>Choose a resume</b><span>or paste the text below</span></label>
+          <input id="resumeFile" class="file-input" type="file" accept=".pdf,.docx,.txt" />
+          <textarea id="resumeText" placeholder="Paste your resume text…"></textarea>
+        </div>
+        <div class="swap">↔</div>
+        <div class="field">
+          <div class="field-head"><label for="jobText">The opportunity</label><small>JOB DESCRIPTION</small></div>
+          <textarea id="jobText" class="job-area" placeholder="Paste the role responsibilities and qualifications…"></textarea>
+        </div>
+      </div>
+      <button id="analyzeBtn" class="analyze">connect the dots <span>→</span></button>
+      <div id="error" class="error hidden"></div>
+
+      <div id="results" class="results hidden">
+        <div class="result-summary">
+          <div class="score-ring"><span id="score">—</span><small>evidence<br>alignment</small></div>
+          <div><p class="eyebrow">Your result</p><h2>Here is what your resume can support.</h2><p>This is evidence similarity—not a hiring prediction or an ATS score.</p></div>
+        </div>
+        <div class="metric-row">
+          <div><b id="matchedCount">—</b><span>strong requirement matches</span></div>
+          <div><b id="gapCount">—</b><span>requirements to review</span></div>
+        </div>
+        <div class="result-grid">
+          <article class="result-card"><div class="card-title"><span class="good-dot"></span><h3>Strong evidence</h3></div><div id="matches"></div></article>
+          <article class="result-card"><div class="card-title"><span class="review-dot"></span><h3>Worth reviewing</h3></div><div id="gaps"></div></article>
+        </div>
+        <article class="result-card evidence-card"><p class="eyebrow">Lead with what is already yours</p><h3>Resume evidence that connects best</h3><div id="ranked"></div></article>
+      </div>
+    </section>
+
+    <section id="how" class="how reveal">
+      <div class="section-number">02</div>
+      <div class="how-title"><p class="eyebrow">For the curious</p><h2>No magic box. Here’s what’s actually happening.</h2></div>
+      <div class="flow">
+        <div><b>01</b><span>Parse</span><small>PDF, DOCX, or text is read locally.</small></div>
+        <i>→</i><div><b>02</b><span>Represent</span><small>MiniLM turns sentences into embeddings.</small></div>
+        <i>→</i><div><b>03</b><span>Compare</span><small>Cosine similarity and lexical signals rank evidence.</small></div>
+        <i>→</i><div><b>04</b><span>Explain</span><small>Results link back to the original resume text.</small></div>
+      </div>
+      <div class="tech-note">
+        <p><strong>Why embeddings?</strong> “Built dashboards from operational data” can support a role asking for “data visualization” even when the exact phrase is missing. Semantic similarity helps recognize that relationship.</p>
+        <p><strong>Why a fallback?</strong> If the browser cannot load the embedding model, JobFit keeps working with lexical similarity instead of turning a model-loading problem into a broken product.</p>
+      </div>
+    </section>
+
+    <section class="closing reveal">
+      <p class="eyebrow">That’s the whole point</p>
+      <blockquote>“You probably have more relevant experience than the job description makes you think.”</blockquote>
+      <a href="https://github.com/Abdelrahmany-Radwan/JobFit" target="_blank" rel="noreferrer">Explore the source and engineering decisions ↗</a>
+    </section>
+  </main>
+
+  <footer><div><span class="brand-mark small">J</span><b>JobFit</b></div><p>Designed and built by Abdelrahman Radwan.</p><a href="#top">Back to top ↑</a></footer>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
