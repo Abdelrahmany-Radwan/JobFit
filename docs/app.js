@@ -174,6 +174,24 @@ analyzeBtn.addEventListener("click", async () => {
     errorEl.classList.remove("hidden");
   }finally{
     analyzeBtn.disabled=false;
-    analyzeBtn.textContent="Analyze with JobFit AI";
+    analyzeBtn.innerHTML="Find my evidence <span>→</span>";
   }
 });
+
+const fileLabel = document.querySelector(".dropzone b");
+resumeFile.addEventListener("change", () => {
+  if (resumeFile.files[0]) fileLabel.textContent = resumeFile.files[0].name;
+});
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) entry.target.classList.add("visible");
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+
+window.addEventListener("scroll", () => {
+  const doc = document.documentElement;
+  const max = doc.scrollHeight - doc.clientHeight;
+  $("progress").style.width = (max > 0 ? (doc.scrollTop / max) * 100 : 0) + "%";
+}, { passive: true });
