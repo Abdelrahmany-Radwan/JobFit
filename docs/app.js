@@ -3,6 +3,7 @@ const resumeFile = $("resumeFile");
 const resumeText = $("resumeText");
 const jobText = $("jobText");
 const analyzeBtn = $("analyzeBtn");
+const sampleBtn = $("sampleBtn");
 const statusEl = $("modelStatus");
 const errorEl = $("error");
 const resultsEl = $("results");
@@ -209,4 +210,42 @@ document.querySelectorAll(".resume-card").forEach((card) => {
     card.style.removeProperty("--px");
     card.style.removeProperty("--py");
   });
+});
+
+const SAMPLE_RESUME = `
+Jordan Lee
+Data Analytics Student
+
+Experience
+Built Python scripts with pandas to clean survey data and automate weekly reporting.
+Designed Power BI dashboards that summarized energy-use trends for a project presentation.
+Collaborated with a six-person team to research smart-community technologies and present recommendations.
+Presented cloud concepts to student attendees using step-by-step demos and plain-language explanations.
+
+Projects
+Built and deployed a resume-matching application that uses MiniLM sentence embeddings, cosine similarity, and lexical signals to connect job requirements to supporting resume evidence.
+Managed source control, CI, model evaluation, architecture documentation, and deployment through GitHub.
+`;
+
+const SAMPLE_JOB = `
+Data & AI Intern
+
+Requirements:
+Experience using Python to analyze datasets and automate workflows.
+Ability to create clear data visualizations and communicate insights to stakeholders.
+Strong written and verbal communication skills for explaining technical concepts.
+Experience collaborating across a project team.
+Familiarity with machine learning or natural language processing.
+Ability to translate ambiguous requirements into working technical solutions.
+Preferred: experience with Git and GitHub source control.
+`;
+
+sampleBtn?.addEventListener("click", () => {
+  resumeText.value = SAMPLE_RESUME.trim();
+  jobText.value = SAMPLE_JOB.trim();
+  resumeFile.value = "";
+  if (fileLabel) fileLabel.textContent = "Choose a resume";
+  errorEl.classList.add("hidden");
+  resultsEl.classList.add("hidden");
+  analyzeBtn.scrollIntoView({behavior:"smooth", block:"center"});
 });
