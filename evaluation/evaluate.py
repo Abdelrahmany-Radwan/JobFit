@@ -35,6 +35,16 @@ def lexical(a: str, b: str) -> float:
     return len(left & right) / math.sqrt(len(left) * len(right))
 
 
+def wilson_interval(successes, total, z=1.96):
+    if total == 0:
+        return [0.0, 0.0]
+    p = successes / total
+    denom = 1 + z * z / total
+    center = (p + z * z / (2 * total)) / denom
+    margin = z * math.sqrt((p * (1 - p) + z * z / (4 * total)) / total) / denom
+    return [round(max(0.0, center - margin), 4), round(min(1.0, center + margin), 4)]
+
+
 def classification_metrics(labels, scores, threshold):
     pred = [int(score >= threshold) for score in scores]
     tp = sum(p == 1 and y == 1 for p, y in zip(pred, labels))
@@ -51,6 +61,7 @@ def classification_metrics(labels, scores, threshold):
         "recall": round(recall, 4),
         "f1": round(f1, 4),
         "accuracy": round(accuracy, 4),
+        "accuracy_95pct_wilson": wilson_interval(tp + tn, len(labels)),
         "tp": tp, "fp": fp, "fn": fn, "tn": tn,
     }
 
@@ -64,7 +75,19 @@ def choose_threshold(labels, scores):
 def evaluate_method(dev_rows, test_rows, dev_scores, test_scores):
     selected = choose_threshold([row["label"] for row in dev_rows], dev_scores)
     test = classification_metrics([row["label"] for row in test_rows], test_scores, selected["threshold"])
-    return {"selected_on_dev": selected, "test": test}
+    predictions = [int(score >= selected["threshold"]) for score in test_scores]
+    errors = []
+    for row, score, pred in zip(test_rows, test_scores, predictions):
+        if pred != row["label"]:
+            errors.append({
+                "id": row["id"],
+                "expected": row["label"],
+                "predicted": pred,
+                "score": round(score, 4),
+                "requirement": row["requirement"],
+                "evidence": row["evidence"],
+            })
+    return {"selected_on_dev": selected, "test": test, "errors": errors}
 
 
 def main():
@@ -111,7 +134,7 @@ def main():
     test_lex, test_sem, test_hyb, lexical_ms, semantic_ms = score_rows(test_rows)
 
     result = {
-        "methodology": "threshold selected on dev; metrics reported on held-out test",
+        "methodology": "threshold selected on dev; metrics and error cases reported on held-out test",
         "dataset": {
             "total": len(rows),
             "dev": len(dev_rows),

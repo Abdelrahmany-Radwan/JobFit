@@ -1,12 +1,14 @@
 # JobFit
 
+![JobFit product preview](docs/assets/jobfit-preview.svg)
+
 [![CI](https://img.shields.io/github/actions/workflow/status/Abdelrahmany-Radwan/JobFit/ci.yml?branch=main&label=build&style=flat-square)](https://github.com/Abdelrahmany-Radwan/JobFit/actions/workflows/ci.yml)
 [![Evaluation](https://img.shields.io/github/actions/workflow/status/Abdelrahmany-Radwan/JobFit/evaluation.yml?branch=main&label=evaluation&style=flat-square)](https://github.com/Abdelrahmany-Radwan/JobFit/actions/workflows/evaluation.yml)
 [![Deploy](https://img.shields.io/github/actions/workflow/status/Abdelrahmany-Radwan/JobFit/pages.yml?branch=main&label=deploy&style=flat-square)](https://github.com/Abdelrahmany-Radwan/JobFit/actions/workflows/pages.yml)
 
 JobFit is an evidence-first resume-to-job matching system. It maps individual job requirements to supporting resume text using in-browser sentence embeddings, then exposes the evidence behind each match instead of generating new qualifications.
 
-**[Live application](https://abdelrahmany-radwan.github.io/JobFit/)** · **[Architecture](ARCHITECTURE.md)**
+**[Live application](https://abdelrahmany-radwan.github.io/JobFit/)** · **[Architecture](ARCHITECTURE.md)** · **[Brand system](BRAND.md)** · **[Latest release](https://github.com/Abdelrahmany-Radwan/JobFit/releases/latest)**
 
 > **Product direction:** JobFit is designed around evidence as a visual object: resumes, requirements, source lines, and their connections. The interface intentionally avoids presenting semantic matching as a black-box “AI score.”
 
@@ -52,7 +54,7 @@ JobFit includes a reproducible retrieval benchmark with thresholds selected on a
 
 On the GitHub Actions CPU runner, lexical scoring averaged **0.008 ms/pair** and MiniLM semantic scoring had a **6.26 ms median/pair**, excluding model download/load time.
 
-The benchmark currently contains 48 curated requirement/evidence pairs (28 dev, 20 held-out test), including hard negatives. It is a regression benchmark for comparing retrieval behavior—not a claim about ATS, hiring, or population-level recruiting accuracy. The full methodology and generated results live in `evaluation/` and the **Evaluate matching model** workflow.
+The benchmark currently contains 48 curated requirement/evidence pairs (28 dev, 20 held-out test), including hard negatives. It is a regression benchmark for comparing retrieval behavior—not a claim about ATS, hiring, or population-level recruiting accuracy. The evaluator also reports a 95% Wilson interval for held-out accuracy and lists every misclassified test example for error analysis. The full methodology and generated results live in `evaluation/` and the **Evaluate matching model** workflow.
 
 ## Product + engineering principles
 
@@ -80,7 +82,10 @@ The interface and retrieval system follow the same constraint: **show the connec
 ├── analyzer.py           # deterministic matching baseline
 ├── app.py                # Streamlit reference interface
 ├── ARCHITECTURE.md
+├── BRAND.md
+├── CHANGELOG.md
 ├── CONTRIBUTING.md
+├── SECURITY.md
 └── LICENSE
 ```
 
