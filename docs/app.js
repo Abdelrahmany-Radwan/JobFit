@@ -365,3 +365,61 @@ heroSampleBtn?.addEventListener("click", () => {
   resultsEl.classList.add("hidden");
   document.getElementById("demo")?.scrollIntoView({ behavior: "smooth", block: "start" });
 });
+
+
+const HERO_MATCHES = [
+  {
+    key: "communication",
+    title: "communication ↔ communication",
+    reason: "“Presented cloud concepts” supports a requirement to explain technical ideas clearly."
+  },
+  {
+    key: "analysis",
+    title: "analysis ↔ decision-making",
+    reason: "“Built dashboards from energy-use data” supports turning analysis into useful decisions."
+  }
+];
+
+let heroMatchIndex = 0;
+let heroMatchPaused = false;
+
+function setHeroMatch(match) {
+  document.querySelectorAll(".job-req[data-match], .marked[data-evidence], .sketch-path[data-path]")
+    .forEach(el => el.classList.remove("is-active"));
+
+  document.querySelector('.job-req[data-match="' + match.key + '"]')?.classList.add("is-active");
+  document.querySelector('.marked[data-evidence="' + match.key + '"]')?.classList.add("is-active");
+  document.querySelector('.sketch-path[data-path="' + match.key + '"]')?.classList.add("is-active");
+
+  const title = document.getElementById("heroMatchTitle");
+  const reason = document.getElementById("heroMatchReason");
+  if (title) title.textContent = match.title;
+  if (reason) reason.textContent = match.reason;
+}
+
+function advanceHeroMatch() {
+  if (heroMatchPaused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  heroMatchIndex = (heroMatchIndex + 1) % HERO_MATCHES.length;
+  setHeroMatch(HERO_MATCHES[heroMatchIndex]);
+}
+
+setHeroMatch(HERO_MATCHES[0]);
+const heroMatchTimer = window.setInterval(advanceHeroMatch, 2600);
+
+document.querySelectorAll(".job-req[data-match]").forEach((req) => {
+  req.setAttribute("tabindex", "0");
+  const key = req.dataset.match;
+  const idx = HERO_MATCHES.findIndex(x => x.key === key);
+  const activate = () => {
+    heroMatchPaused = true;
+    if (idx >= 0) {
+      heroMatchIndex = idx;
+      setHeroMatch(HERO_MATCHES[idx]);
+    }
+  };
+  const resume = () => { heroMatchPaused = false; };
+  req.addEventListener("mouseenter", activate);
+  req.addEventListener("focus", activate);
+  req.addEventListener("mouseleave", resume);
+  req.addEventListener("blur", resume);
+});
