@@ -8,6 +8,8 @@ JobFit is an evidence-first resume-to-job matching system. It maps individual jo
 
 **[Live application](https://abdelrahmany-radwan.github.io/JobFit/)** · **[Architecture](ARCHITECTURE.md)**
 
+> **Product direction:** JobFit is designed around evidence as a visual object: resumes, requirements, source lines, and their connections. The interface intentionally avoids presenting semantic matching as a black-box “AI score.”
+
 ## System
 
 ```text
@@ -53,6 +55,10 @@ Thresholds are selected on a **development split** and final metrics are calcula
 The current benchmark is intentionally a small curated regression set. It is useful for comparing implementation changes; it is **not** presented as a general measure of hiring, ATS, or real-world recruiting accuracy.
 
 Run details and generated metrics are available from the **Evaluate matching model** GitHub Actions workflow.
+
+## Product + engineering principles
+
+The interface and retrieval system follow the same constraint: **show the connection before asking the user to trust the score.** Visual states expose source evidence alongside similarity output, while the retrieval layer remains independently testable.
 
 ## Engineering decisions
 
