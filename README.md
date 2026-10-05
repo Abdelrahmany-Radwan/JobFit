@@ -1,85 +1,100 @@
-# JobFit — AI Resume Match Explainer
+# JobFit
 
-**Live demo:** https://abdelrahmany-radwan.github.io/JobFit/
+[![Live Site](https://img.shields.io/badge/live-jobfit-2f6f62?style=flat-square)](https://abdelrahmany-radwan.github.io/JobFit/)
+[![CI](https://img.shields.io/github/actions/workflow/status/Abdelrahmany-Radwan/JobFit/ci.yml?branch=main&label=CI&style=flat-square)](https://github.com/Abdelrahmany-Radwan/JobFit/actions/workflows/ci.yml)
+[![Pages](https://img.shields.io/github/actions/workflow/status/Abdelrahmany-Radwan/JobFit/pages.yml?branch=main&label=Pages&style=flat-square)](https://github.com/Abdelrahmany-Radwan/JobFit/actions/workflows/pages.yml)
 
-JobFit is a privacy-first, explainable resume-to-job matching application. It uses transformer sentence embeddings plus deterministic evidence matching to compare what a role asks for with what a resume can actually support.
+JobFit is an explainable resume-to-job matching project built around a problem I saw students face: it is hard to tell which parts of a resume actually support a job application without either relying on exact keyword matching or rewriting experience beyond what really happened.
 
-The core idea is simple:
+JobFit uses semantic sentence embeddings and transparent evidence matching to connect job requirements to existing resume text. The public application runs in the browser so the document can be analyzed without a JobFit resume-storage backend.
 
-> **Use AI to understand meaning. Use evidence to keep the result honest.**
+**[Open JobFit](https://abdelrahmany-radwan.github.io/JobFit/)**
 
-## Why I built it
+## Product principles
 
-Keyword-only resume scanners can miss semantic matches. Generative resume tools can create the opposite problem: rewriting experience in ways that sound stronger than what the candidate actually did.
+- **Evidence first** — results point back to text that already exists in the resume.
+- **Semantic matching** — sentence embeddings capture related meaning beyond exact keyword overlap.
+- **Explainable output** — each match shows the job requirement and supporting resume evidence.
+- **Privacy-aware processing** — the public application parses files and performs matching client-side.
+- **Graceful fallback** — lexical similarity keeps the core experience available if the embedding model cannot load.
 
-JobFit is designed between those two extremes. It uses semantic AI to understand similarity, but it only surfaces evidence that already exists in the candidate's resume.
+## How it works
 
-## What the live app does
+```text
+Resume + job description
+          │
+          ▼
+Client-side document parsing
+          │
+          ▼
+Requirement-oriented text segmentation
+          │
+          ▼
+MiniLM sentence embeddings
+          │
+          ▼
+Cosine similarity + lexical signals
+          │
+          ▼
+Requirement ↔ resume evidence
+```
 
-- Accepts PDF, DOCX, TXT, or pasted resume content.
-- Accepts a pasted job description.
-- Identifies requirement-oriented job statements.
-- Runs **all-MiniLM-L6-v2 sentence embeddings in the browser** with Transformers.js.
-- Combines semantic similarity with lexical evidence signals.
-- Shows the strongest requirement-to-resume matches.
-- Flags job requirements that do not have strong visible evidence.
-- Ranks existing resume lines the candidate should lead with.
-- Keeps resume processing client-side; JobFit has no resume-storage backend.
-- Falls back to local lexical similarity if the transformer model is unavailable.
+The browser application uses `Xenova/all-MiniLM-L6-v2` through Transformers.js. Resume and job segments are embedded into vector representations, compared with cosine similarity, and combined with lexical overlap signals. The result is presented as evidence rather than generated experience.
 
-## AI / ML architecture
+## Technology
 
-\`\`\`
-Resume + Job Description
-        ↓
-Client-side file parsing
-        ↓
-Requirement-oriented sentence extraction
-        ↓
-Transformer sentence embeddings
-(all-MiniLM-L6-v2 via Transformers.js)
-        ↓
-Cosine similarity + lexical evidence signals
-        ↓
-Explainable requirement ↔ resume evidence pairs
-\`\`\`
-
-The transformer model improves matching beyond exact keywords. The output remains explainable because every score is tied back to an exact line from the user-provided resume.
-
-## Engineering decisions
-
-### Semantic AI instead of keyword-only matching
-The live version uses a real sentence-transformer embedding model to represent resume and job text semantically.
-
-### Explainability by design
-JobFit does not ask a model to invent a credential. It ranks evidence that already exists and displays the supporting text.
-
-### Privacy-aware inference
-The public application is static. PDF/DOCX parsing and embedding inference run in the user's browser instead of sending resume content to a JobFit application server.
-
-### Resilient execution
-If the transformer model cannot load, the interface continues with local lexical similarity instead of failing completely.
-
-## Tech stack
-
-- JavaScript / HTML / CSS
-- Transformers.js
-- Xenova/all-MiniLM-L6-v2
-- PDF.js
-- Mammoth.js
-- GitHub Pages
-- Python / Streamlit reference implementation
-- Git / GitHub
-
-## AI-assisted development workflow
-
-JobFit was developed with an AI-native engineering workflow. ChatGPT was used for architecture discussion, code review, edge-case reasoning, UX refinement, and documentation while implementation decisions remained reviewable in GitHub source control.
-
-I use AI coding tools as development accelerators rather than replacements for technical ownership: suggested changes are inspected, tested against intended behavior, and kept explainable enough to defend technically.
+| Layer | Technology | Purpose |
+| --- | --- | --- |
+| Web UI | HTML, CSS, JavaScript | Responsive public product experience |
+| Semantic matching | Transformers.js + MiniLM | In-browser sentence embeddings |
+| Document parsing | PDF.js + Mammoth.js | PDF and DOCX text extraction |
+| Matching logic | Cosine similarity + lexical signals | Evidence ranking |
+| Python baseline | Python + Streamlit | Deterministic reference implementation |
+| Delivery | GitHub Actions + GitHub Pages | Continuous validation and deployment |
 
 ## Repository structure
 
-- \`docs/\` — recruiter-facing public web application deployed to GitHub Pages.
-- \`app.py\` — Streamlit reference implementation.
-- \`analyzer.py\` — transparent Python matching baseline.
-- \`.github/workflows/pages.yml\` — GitHub Pages deployment workflow.
+```text
+JobFit/
+├── .github/
+│   └── workflows/
+│       ├── ci.yml             # Repository validation
+│       └── pages.yml          # GitHub Pages deployment
+├── docs/
+│   ├── index.html             # Public application
+│   ├── style.css              # Responsive design system
+│   ├── app.js                 # Parsing, embeddings, matching, UI behavior
+│   └── .nojekyll              # Static Pages configuration
+├── analyzer.py                # Deterministic Python matching baseline
+├── app.py                     # Streamlit interface for the Python baseline
+├── requirements.txt           # Python dependencies
+├── CONTRIBUTING.md            # Contribution workflow
+├── LICENSE                    # MIT license
+└── README.md                  # Project documentation
+```
+
+## Engineering notes
+
+The project keeps the public browser implementation and the Python baseline separate on purpose. The browser version focuses on semantic matching, privacy, and accessibility through a public URL. The Python implementation keeps the original deterministic skill-matching approach available as a readable baseline for comparison.
+
+JobFit does not treat its similarity result as an ATS score or hiring prediction. The score summarizes evidence similarity within this application and is accompanied by the source text so the user can interpret it.
+
+## AI-assisted development
+
+AI tools were used as part of the development workflow for architecture discussion, implementation review, edge-case reasoning, and documentation. AI-assisted suggestions were reviewed against the project requirements and committed through normal source control rather than treated as authoritative output.
+
+The product itself uses an embedding model for semantic matching. It does not use generative AI to create qualifications or claim experience that is absent from the resume.
+
+## Local development
+
+The public application is static: serve the `docs/` directory with any local HTTP server.
+
+The Python baseline uses the dependencies in `requirements.txt` and runs through Streamlit.
+
+## Contributing
+
+Small, focused changes are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for the development and pull-request workflow.
+
+## License
+
+Released under the [MIT License](LICENSE).
