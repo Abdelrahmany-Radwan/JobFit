@@ -43,3 +43,47 @@ footer{width:min(1220px,94vw);margin:auto;border-top:1px solid var(--line);paddi
 .sample:hover{border-color:#9cab9f;background:#2b312e}
 .demo-actions .analyze{margin-top:0}
 @media(max-width:560px){.demo-actions{grid-template-columns:1fr}.sample{order:2}}
+
+
+.company-strip{padding:10px 0 110px;border-top:1px solid var(--line)}
+.company-head{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;padding:70px 0 30px}
+.company-head h2{font-family:"Instrument Serif",serif;font-size:clamp(38px,4.8vw,62px);font-weight:400;line-height:1.02;letter-spacing:-.035em;margin:0}
+.company-head>p:last-child{color:var(--muted);font-size:14px;max-width:470px;justify-self:end}
+.logo-rail{display:grid;grid-template-columns:repeat(8,1fr);border:1px solid var(--line);background:rgba(255,255,255,.28)}
+.logo-item{height:112px;display:grid;place-items:center;border-right:1px solid var(--line);transition:.2s;background:rgba(255,255,255,.15)}
+.logo-item:last-child{border-right:0}.logo-item:hover{background:#fff}
+.logo-item img{max-width:62px;max-height:40px;width:auto;height:auto;filter:saturate(.9);transition:.2s}
+.logo-item:hover img{transform:scale(1.08);filter:saturate(1.1)}
+
+.requirement[data-match]{cursor:pointer;transition:.2s}
+.requirement[data-match]:hover,.requirement[data-match].is-active{background:rgba(216,239,102,.12);padding-left:6px}
+.evidence-highlight{transition:.22s}
+.evidence-highlight.is-active{transform:translateX(5px);box-shadow:0 0 0 2px rgba(216,239,102,.75)}
+.match-path{transition:.22s;opacity:.28}
+.match-path.is-active{opacity:1;height:2px;background:var(--lime)}
+
+.faq{padding:20px 0 110px;border-bottom:1px solid var(--line);display:grid;grid-template-columns:.8fr 1.2fr;gap:70px}
+.faq-intro h2{font-family:"Instrument Serif",serif;font-size:clamp(42px,5vw,66px);font-weight:400;line-height:1.03;letter-spacing:-.04em;margin:0;position:sticky;top:40px}
+.faq-list{border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line);padding:0}
+.faq summary{list-style:none;cursor:pointer;padding:24px 4px;font-size:17px;font-weight:600;display:flex;justify-content:space-between;gap:20px;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:after{content:"+";font-family:"Instrument Serif",serif;font-size:28px;font-weight:400;transition:.2s}
+.faq details[open] summary:after{content:"–";transform:rotate(180deg)}
+.faq details p{margin:0;padding:0 40px 24px 4px;color:var(--muted);max-width:760px;font-size:14px;line-height:1.7}
+
+@media(max-width:900px){
+  .company-head,.faq{grid-template-columns:1fr;gap:18px}
+  .company-head>p:last-child{justify-self:start}
+  .logo-rail{grid-template-columns:repeat(4,1fr)}
+  .logo-item:nth-child(4){border-right:0}
+  .logo-item:nth-child(-n+4){border-bottom:1px solid var(--line)}
+  .faq-intro h2{position:relative;top:auto}
+}
+@media(max-width:560px){
+  .logo-rail{grid-template-columns:repeat(2,1fr)}
+  .logo-item{border-bottom:1px solid var(--line)}
+  .logo-item:nth-child(odd){border-right:1px solid var(--line)}
+  .logo-item:nth-child(even){border-right:0}
+  .faq summary{font-size:15px}
+}
