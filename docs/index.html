@@ -191,11 +191,35 @@
           <div><b id="matchedCount">—</b><span>strong requirement matches</span></div>
           <div><b id="gapCount">—</b><span>requirements to review</span></div>
         </div>
-        <div class="result-grid">
-          <article class="result-card"><div class="card-title"><span class="good-dot"></span><h3>Strong evidence</h3></div><div id="matches"></div></article>
-          <article class="result-card"><div class="card-title"><span class="review-dot"></span><h3>Worth reviewing</h3></div><div id="gaps"></div></article>
+        <div class="report-tabs" role="tablist" aria-label="JobFit report views">
+          <button class="report-tab active" data-tab="evidence" role="tab" aria-selected="true">Evidence map</button>
+          <button class="report-tab" data-tab="health" role="tab" aria-selected="false">Resume health</button>
+          <button class="report-tab" data-tab="keywords" role="tab" aria-selected="false">Keyword coverage</button>
         </div>
-        <article class="result-card evidence-card"><p class="eyebrow">Lead with what is already yours</p><h3>Resume evidence that connects best</h3><div id="ranked"></div></article>
+
+        <section class="report-pane active" data-pane="evidence">
+          <div class="result-grid">
+            <article class="result-card"><div class="card-title"><span class="good-dot"></span><h3>Strong evidence</h3></div><div id="matches"></div></article>
+            <article class="result-card"><div class="card-title"><span class="review-dot"></span><h3>Worth reviewing</h3></div><div id="gaps"></div></article>
+          </div>
+          <article class="result-card evidence-card"><p class="eyebrow">Lead with what is already yours</p><h3>Resume evidence that connects best</h3><div id="ranked"></div></article>
+        </section>
+
+        <section class="report-pane" data-pane="health">
+          <div class="health-layout">
+            <div class="health-score"><small>CONTENT HEALTH</small><strong id="healthScore">—</strong><span>heuristic checks, not an ATS score</span></div>
+            <div id="healthChecks" class="health-checks"></div>
+          </div>
+          <article class="action-queue"><p class="eyebrow">Fix these first</p><h3>Prioritized action queue</h3><div id="actionQueue"></div></article>
+        </section>
+
+        <section class="report-pane" data-pane="keywords">
+          <div class="keyword-summary"><div><small>EXACT COVERAGE</small><strong id="keywordCoverage">—</strong><span>job terms found literally in the résumé</span></div><p>Semantic matching can find related experience even when wording differs. Exact coverage is shown separately so you can see both signals instead of mixing them into one mystery number.</p></div>
+          <div class="keyword-grid">
+            <article><h3>Present in your résumé</h3><div id="presentKeywords" class="keyword-list"></div></article>
+            <article><h3>Not found exactly</h3><div id="missingKeywords" class="keyword-list"></div></article>
+          </div>
+        </section>
       </div>
     </section>
 
