@@ -8,7 +8,7 @@
 
 JobFit is an evidence-first resume-to-job matching system. It maps individual job requirements to supporting resume text using in-browser sentence embeddings, then exposes the evidence behind each match instead of generating new qualifications.
 
-**[Live application](https://abdelrahmany-radwan.github.io/JobFit/)** · **[Architecture](ARCHITECTURE.md)** · **[Brand system](BRAND.md)** · **[v1.0.0 release](https://github.com/Abdelrahmany-Radwan/JobFit/releases/tag/v1.0.0)**
+**[Live application](https://abdelrahmany-radwan.github.io/JobFit/)** · **[Architecture](ARCHITECTURE.md)** · **[Brand system](BRAND.md)** · **[Latest release](https://github.com/Abdelrahmany-Radwan/JobFit/releases/latest)**
 
 > **Product direction:** JobFit is designed around evidence as a visual object: resumes, requirements, source lines, and their connections. The interface intentionally avoids presenting semantic matching as a black-box “AI score.”
 
