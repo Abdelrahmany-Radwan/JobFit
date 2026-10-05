@@ -1,0 +1,77 @@
+name: Publish v1.0.0
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - ".github/workflows/release-v1.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Publish v1.0.0
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view v1.0.0 >/dev/null 2>&1; then
+            echo "v1.0.0 already exists; nothing to do."
+            exit 0
+          fi
+
+          cat > release-notes.md <<'EOF'
+# JobFit v1.0.0
+
+JobFit v1.0.0 is the first stable release of the evidence-first resume-to-job matching experience.
+
+## Highlights
+
+- In-browser MiniLM sentence embeddings for semantic requirement-to-resume matching
+- Hybrid semantic + lexical evidence ranking
+- Explainable requirement → source-evidence mapping
+- Client-side PDF, DOCX, TXT, and pasted-text processing
+- One-click sample experience for instant product evaluation
+- Resume health checks, exact keyword coverage, and prioritized action queue
+- Signature interactive evidence map on the homepage
+- Graceful lexical fallback when the embedding model cannot load
+
+## Evaluation
+
+The current retrieval benchmark contains 48 curated requirement/evidence pairs, including hard negatives, with thresholds selected on a development split and results reported on a held-out 20-pair test split.
+
+- Precision: 1.000
+- Recall: 0.846
+- F1: 0.917
+- Accuracy: 0.900
+- False positives: 0 / 20 held-out test pairs
+- Median semantic scoring latency: 6.26 ms/pair on the GitHub Actions CPU runner, excluding model download/load
+
+These metrics describe the current JobFit regression benchmark and are not claims about ATS, hiring, or population-level recruiting accuracy.
+
+## Engineering
+
+- GitHub Actions CI for Python and browser JavaScript validation
+- Separate reproducible ML evaluation workflow
+- GitHub Pages deployment
+- Unit tests for the deterministic Python baseline
+- Architecture and contribution documentation
+- Protected main-branch workflow with pull requests and linear history
+
+## Product principle
+
+JobFit is evidence-first: it helps users understand which parts of their existing experience support a role rather than inventing qualifications or presenting a black-box hiring score.
+
+**Live app:** https://abdelrahmany-radwan.github.io/JobFit/
+EOF
+
+          gh release create v1.0.0 \
+            --target "${GITHUB_SHA}" \
+            --title "JobFit v1.0.0 — Evidence-first matching" \
+            --notes-file release-notes.md
