@@ -75,10 +75,15 @@
         </article>
 
         <svg class="connection-sketch" viewBox="0 0 560 360" aria-hidden="true">
-          <path class="sketch-path p1" d="M286 158 C350 140, 382 114, 450 124"/>
-          <path class="sketch-path p2" d="M294 260 C362 272, 398 236, 455 218"/>
+          <path class="sketch-path p1" data-path="communication" d="M286 158 C350 140, 382 114, 450 124"/>
+          <path class="sketch-path p2" data-path="analysis" d="M294 260 C362 272, 398 236, 455 218"/>
         </svg>
-        <div class="desk-sticker">2 matches I can actually defend ✓</div>
+        <div class="desk-sticker" id="heroMatchBubble">2 matches I can actually defend ✓</div>
+        <div class="match-explainer" aria-live="polite">
+          <small>WHY THIS CONNECTS</small>
+          <strong id="heroMatchTitle">communication ↔ communication</strong>
+          <p id="heroMatchReason">“Presented cloud concepts” supports a requirement to explain technical ideas clearly.</p>
+        </div>
       </div>
     </section>
 
