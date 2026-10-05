@@ -155,3 +155,6 @@ footer{width:min(1220px,94vw);margin:auto;border-top:1px solid var(--line);paddi
   .keyword-grid article{border-right:0;border-bottom:1px solid #4b514e}
   .keyword-grid article:last-child{border-bottom:0}
 }
+
+:focus-visible{outline:3px solid var(--lime);outline-offset:3px}
+button:focus-visible,a:focus-visible,summary:focus-visible{border-radius:2px}
