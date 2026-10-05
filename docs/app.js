@@ -174,7 +174,7 @@ analyzeBtn.addEventListener("click", async () => {
     errorEl.classList.remove("hidden");
   }finally{
     analyzeBtn.disabled=false;
-    analyzeBtn.innerHTML="Find my evidence <span>→</span>";
+    analyzeBtn.innerHTML="connect the dots <span>→</span>";
   }
 });
 
@@ -195,3 +195,18 @@ window.addEventListener("scroll", () => {
   const max = doc.scrollHeight - doc.clientHeight;
   $("progress").style.width = (max > 0 ? (doc.scrollTop / max) * 100 : 0) + "%";
 }, { passive: true });
+
+document.querySelectorAll(".resume-card").forEach((card) => {
+  card.addEventListener("pointermove", (event) => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const rect = card.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width - .5;
+    const y = (event.clientY - rect.top) / rect.height - .5;
+    card.style.setProperty("--px", x.toFixed(2));
+    card.style.setProperty("--py", y.toFixed(2));
+  });
+  card.addEventListener("pointerleave", () => {
+    card.style.removeProperty("--px");
+    card.style.removeProperty("--py");
+  });
+});
