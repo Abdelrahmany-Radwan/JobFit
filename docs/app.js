@@ -39,15 +39,15 @@ function cosine(a,b) {
 
 async function loadModel() {
   if (extractor) return extractor;
-  statusEl.textContent = "Loading transformer model…";
+  statusEl.textContent = "Loading semantic matcher…";
   try {
     const { pipeline, env } = await import("https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2/+esm");
     env.allowLocalModels = false;
     extractor = await pipeline("feature-extraction","Xenova/all-MiniLM-L6-v2",{quantized:true});
-    statusEl.textContent = "AI model ready · MiniLM embeddings";
+    statusEl.textContent = "MiniLM ready · matching locally";
     return extractor;
   } catch (e) {
-    statusEl.textContent = "Semantic fallback active";
+    statusEl.textContent = "Lexical fallback active";
     extractor = false;
     return false;
   }
@@ -335,7 +335,7 @@ sampleBtn?.addEventListener("click", () => {
 });
 
 
-document.querySelectorAll(".requirement[data-match]").forEach((req) => {
+document.querySelectorAll(".requirement[data-match], .job-req[data-match]").forEach((req) => {
   const key = req.dataset.match;
   const evidence = document.querySelector('[data-evidence="' + key + '"]');
   const path = document.querySelector('[data-path="' + key + '"]');
@@ -353,4 +353,15 @@ document.querySelectorAll(".requirement[data-match]").forEach((req) => {
   req.addEventListener("mouseleave", off);
   req.addEventListener("focusin", on);
   req.addEventListener("focusout", off);
+});
+
+const heroSampleBtn = document.getElementById("heroSampleBtn");
+heroSampleBtn?.addEventListener("click", () => {
+  resumeText.value = SAMPLE_RESUME.trim();
+  jobText.value = SAMPLE_JOB.trim();
+  resumeFile.value = "";
+  if (fileLabel) fileLabel.textContent = "Choose a resume";
+  errorEl.classList.add("hidden");
+  resultsEl.classList.add("hidden");
+  document.getElementById("demo")?.scrollIntoView({ behavior: "smooth", block: "start" });
 });
