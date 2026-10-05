@@ -59,7 +59,7 @@ with about:
     with b:
         st.markdown('<div class="card"><h3>2. Verify evidence</h3><p>Search the resume for supporting text instead of assuming the candidate has the skill.</p></div>', unsafe_allow_html=True)
     with c:
-        st.markdown('<div class="card"><h3>3. Explain the gap</h3><p>Show matches, missing evidence, and the candidate\\'s existing lines that are most relevant.</p></div>', unsafe_allow_html=True)
+        st.markdown("""<div class="card"><h3>3. Explain the gap</h3><p>Show matches, missing evidence, and the candidate's existing lines that are most relevant.</p></div>""", unsafe_allow_html=True)
 
     st.subheader("How it works")
     st.markdown(
