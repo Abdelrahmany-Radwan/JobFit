@@ -24,14 +24,14 @@
   <main id="top">
     <section class="hero reveal">
       <div class="hero-copy">
-        <p class="eyebrow">Built for students applying to their next opportunity</p>
-        <h1>Your experience already tells a story. <em>JobFit helps you find the evidence.</em></h1>
-        <p class="lede">Compare a resume with a job description and see which requirements your experience supports, where the evidence is weak, and which existing lines deserve more attention.</p>
+        <div class="hero-kicker"><span>made for the “am I even qualified?” moment</span><i>↗</i></div>
+        <h1>Stop guessing.<br><em>See what actually fits.</em></h1>
+        <p class="lede">Drop in your resume. Paste the job. JobFit connects the dots using the experience you already have—no fake glow-up, no mystery score.</p>
         <div class="actions">
-          <a class="button primary" href="#demo">Check a match</a>
-          <a class="button secondary" href="#story">Why I built this</a>
+          <a class="button primary" href="#demo">try yours — it takes a minute</a>
+          <a class="button secondary" href="#story">wait, why JobFit?</a>
         </div>
-        <p class="privacy-note"><span>●</span> Your resume is processed in your browser. JobFit does not store it on an application server.</p>
+        <div class="trust-strip"><span>your resume stays in your browser</span><span>no made-up experience</span><span>actual evidence, not vibes</span></div>
       </div>
       <div class="hero-visual" aria-hidden="true">
         <div class="resume-stack">
@@ -80,13 +80,13 @@
     <section id="story" class="story reveal">
       <div class="section-number">01</div>
       <div>
-        <p class="eyebrow">The problem I wanted to solve</p>
-        <h2>I kept seeing the same problem.</h2>
-        <p class="story-lead">Students have real projects, classes, internships, and leadership experience—but translating that experience to one specific job description is difficult.</p>
+        <p class="eyebrow">Why this exists</p>
+        <h2>Job descriptions are weirdly good at making capable people feel underqualified.</h2>
+        <p class="story-lead">A class project says “dashboard.” The job says “data visualization.” You did the thing—the wording just doesn’t look the same.</p>
       </div>
       <div class="story-body">
-        <p>Keyword scanners can miss related experience when the wording is different. Generative tools can go too far in the other direction and rewrite a resume into something the student cannot confidently defend.</p>
-        <p>So I built JobFit around one rule: <strong>use technology to understand the match, but keep the evidence grounded in what the student actually did.</strong></p>
+        <p>Keyword scanners miss the connection. Generative tools sometimes “help” by turning your experience into something you never actually did. Neither felt right.</p>
+        <p>So JobFit has one rule: <strong>understand the meaning, then point back to the receipts.</strong> If your resume cannot support it, JobFit should not pretend it can.</p>
       </div>
     </section>
 
@@ -98,7 +98,7 @@
 
     <section id="demo" class="demo reveal">
       <div class="demo-heading">
-        <div><p class="eyebrow">Try JobFit</p><h2>Put your resume next to the role.</h2></div>
+        <div><p class="eyebrow">Okay, your turn</p><h2>Resume on the left. Dream role on the right.</h2></div>
         <div id="modelStatus" class="model-status"><span></span>Ready to analyze</div>
       </div>
 
@@ -115,7 +115,7 @@
           <textarea id="jobText" class="job-area" placeholder="Paste the role responsibilities and qualifications…"></textarea>
         </div>
       </div>
-      <button id="analyzeBtn" class="analyze">Find my evidence <span>→</span></button>
+      <button id="analyzeBtn" class="analyze">connect the dots <span>→</span></button>
       <div id="error" class="error hidden"></div>
 
       <div id="results" class="results hidden">
@@ -137,7 +137,7 @@
 
     <section id="how" class="how reveal">
       <div class="section-number">02</div>
-      <div class="how-title"><p class="eyebrow">Under the hood</p><h2>Simple enough to explain. Technical enough to matter.</h2></div>
+      <div class="how-title"><p class="eyebrow">For the curious</p><h2>No magic box. Here’s what’s actually happening.</h2></div>
       <div class="flow">
         <div><b>01</b><span>Parse</span><small>PDF, DOCX, or text is read locally.</small></div>
         <i>→</i><div><b>02</b><span>Represent</span><small>MiniLM turns sentences into embeddings.</small></div>
@@ -151,8 +151,8 @@
     </section>
 
     <section class="closing reveal">
-      <p class="eyebrow">The idea behind JobFit</p>
-      <blockquote>“Help students recognize the value already inside their experience—and explain it with confidence.”</blockquote>
+      <p class="eyebrow">That’s the whole point</p>
+      <blockquote>“You probably have more relevant experience than the job description makes you think.”</blockquote>
       <a href="https://github.com/Abdelrahmany-Radwan/JobFit" target="_blank" rel="noreferrer">Explore the source and engineering decisions ↗</a>
     </section>
   </main>
